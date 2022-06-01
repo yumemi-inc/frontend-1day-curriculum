@@ -6,9 +6,8 @@
 
 html,
 body {
-  background: #000 url('img/bg.jpg') no-repeat center center/cover;
   height: 100vh;
-  color: #fff;
+  color: #000;
   font-family: Arial, Helvetica, sans-serif;
 }
 
