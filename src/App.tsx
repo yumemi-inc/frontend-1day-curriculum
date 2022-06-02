@@ -31,14 +31,11 @@ const App: React.FC = () => {
   const options = {
     chart: {
       type: 'spline',
-      backgroundColor: '#ffcb9a',
+      backgroundColor: '#fff',
       polar: true,
     },
     title: {
       text: '人口構成',
-      style: {
-        color: '#076537',
-      },
     },
     lang: {
       noData: 'データがありません',
