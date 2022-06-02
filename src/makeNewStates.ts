@@ -30,5 +30,6 @@ export const makeNewStates = async (
     newStates.newCheckedPrefCodes = checkedPrefCodes.filter(
       (code) => code !== prefCode
     )
+    return newStates
   }
 }

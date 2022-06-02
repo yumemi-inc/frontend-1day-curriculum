@@ -105,15 +105,13 @@ const App: React.FC = () => {
     getPrefData.GetPref().then((data) => setPrefectures(data))
   }, [])
 
-  const handleChange = async (checked: boolean, prefCode: number) => {
-    setCheckedPrefCodes(async (oldData) => {
-      return (await makeNewStates(checked, prefCode, oldData, loadedPrefData))
-        .fetchedNewLoadData
-    })
-    setLoadedPrefData(async (oldData) => {
-      return (await makeNewStates(checked, prefCode, checkedPrefCodes, oldData))
-        .fetchedNewLoadData
-    })
+  const handleChange = (checked: boolean, prefCode: number) => {
+    makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
+      (res) => {
+        setCheckedPrefCodes(res.newCheckedPrefCodes)
+        setLoadedPrefData(res.fetchedNewLoadData)
+      }
+    )
   }
 
   return (
