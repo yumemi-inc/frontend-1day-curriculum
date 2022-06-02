@@ -27,5 +27,5 @@
 # サーバ起動方法
 ```shell
 yarn
-yarn dev
+yarn start
 ```
