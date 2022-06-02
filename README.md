@@ -14,7 +14,7 @@
 
 - /src/App.tsx
 - /src/makeNewStates.ts
-- /components/配下のファイル
+- /src/components/配下のファイル
 
 ### コードリーディングのポイント
 ↓こんなところを見つけて、重点的にリファクタリングしていきましょう！
