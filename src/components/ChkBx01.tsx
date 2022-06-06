@@ -9,6 +9,5 @@ export const ChkBx01: React.FC<ChkBx01Props> = () => {
   return <label>
     <input type="checkbox" checked={checked} onChange={() => setChecked(bool => !bool)}/>
     <span>愛知県</span>
-    <span>{checked ? "チェックされている" : "チェックされていない"}</span>
   </label>
 }
