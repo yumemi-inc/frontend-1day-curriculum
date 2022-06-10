@@ -48,6 +48,7 @@ const App: React.FC = () => {
       },
     },
     xAxis: {
+      /* APIが返してくる年度はこれだった */
       categories: [
         '1960',
         '1965',
