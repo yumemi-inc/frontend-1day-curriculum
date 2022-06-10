@@ -1,14 +1,18 @@
 * {
   box-sizing: border-box;
+}
+* {
   margin: 0;
+}
+* {
   padding: 0;
 }
 
 html,
 body {
-  height: 100vh;
-  color: #000;
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100vh !important;
+  color: #000 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
 }
 
 a {
