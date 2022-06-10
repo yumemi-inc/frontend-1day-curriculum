@@ -13,6 +13,7 @@
 ### 見て欲しいファイル
 
 - /src/App.tsx
+- /src/App.css
 - /src/makeNewStates.ts
 - /src/components/配下のファイル
 
