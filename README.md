@@ -29,3 +29,6 @@
 yarn
 yarn start
 ```
+
+# Node.jsのバージョン
+`14.17.3`
