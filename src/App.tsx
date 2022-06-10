@@ -113,12 +113,12 @@ const App: React.FC = () => {
 
   return (
     <div className='container'>
-      <h1 className='container-title'>
+      <div className='h1 container-title'>
         <span>都道府県別の総人口推移グラフ</span>
-      </h1>
-      <h3 className='container-main'>
+      </div>
+      <div className='h3 container-main'>
         <span>都道府県</span>
-      </h3>
+      </div>
 
       <div className='app-prefectures-list-container'>
         {prefAry?.map((item) => {
