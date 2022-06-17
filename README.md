@@ -34,6 +34,24 @@ yarn start
 # Node.jsのバージョン
 `14.17.3`
 
+# 使用技術
+## 言語
+- TypeScript（v4.7）
+
+## UIライブラリ
+- React.js（v18）
+
+## その他ライブラリ
+### グラフ表示ライブラリ
+- Highcharts
+### 自動テスト系
+- Jest
+- Enzyme
+
+# 使用API
+- [RESAS-API](https://opendata.resas-portal.go.jp/)
+  - 都道府県や人口などの情報を取得するために使用
+
 # ドキュメント
 ## 2022/08/20
 * [2022/08/20用ドキュメント](docs/20220820)
