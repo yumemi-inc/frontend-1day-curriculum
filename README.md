@@ -35,6 +35,9 @@ yarn start
 `14.17.3`
 
 # 使用技術
+
+## パッケージ管理
+- Yarn
 ## 言語
 - TypeScript（v4.7）
 
