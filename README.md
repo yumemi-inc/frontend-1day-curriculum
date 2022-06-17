@@ -36,22 +36,22 @@ yarn start
 
 # 使用技術
 
-## パッケージ管理
+### パッケージ管理
 - Yarn
-## 言語
+### 言語
 - TypeScript（v4.7）
 
-## UIライブラリ
+### UIライブラリ
 - React.js（v18）
 
-## その他ライブラリ
-### グラフ表示ライブラリ
+### その他ライブラリ
+#### グラフ表示ライブラリ
 - Highcharts
-### 自動テスト系
+#### 自動テスト系
 - Jest
 - Enzyme
 
-# 使用API
+### 使用API
 - [RESAS-API](https://opendata.resas-portal.go.jp/)
   - 都道府県や人口などの情報を取得するために使用
 
