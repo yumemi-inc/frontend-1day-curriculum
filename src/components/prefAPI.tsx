@@ -5,7 +5,7 @@ class Pref {
       {
         method: 'GET',
         headers: {
-          'X-API-KEY': 'Jn3AE3RZQGYg5YL6czBKSiOeDBYfQ5zJsgh890Mp',
+          'X-API-KEY': 'Kzjb2lIu0Kfyv1rwZGhcuAaF706Y9n9MncX5Ivyg',
         },
       }
     )
