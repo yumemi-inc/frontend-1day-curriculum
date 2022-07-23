@@ -113,9 +113,8 @@ const App: React.FC = () => {
     // 伸び代：エラーハンドリング。データ取得できたか確認
   }, [])
 
-  // 伸び代：名前にもう少し情報含まれてて欲しい
-  const handleChange = (checked: boolean, prefCode: number) => {
-    // 伸び代：名前にもう少し情報含まれてて欲しい
+  const handleCheckedPrefChange = (checked: boolean, prefCode: number) => {
+    // TODO: 名前にもう少し情報含まれてて欲しい
     makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
       (res) => {
         setCheckedPrefCodes(res.newCheckedPrefCodes)
@@ -125,40 +124,40 @@ const App: React.FC = () => {
   }
 
   return (
-    // 伸び代：containerよりもう少し具体的な名前に（例：prefecture-graph-page）
-    // ページがふえたとき対策
-    <div className='container'>
-      {/* 伸び代：h1タグにしよう */}
-      <div className='h1 container-title'>
+    <div className='page-container'>
+      <h1 className='page-title'>
         <span>都道府県別の総人口推移グラフ</span>
-      </div>
-      {/* 伸び代：h3タグにしよう */}
-      <div className='h3 container-main'>
-        <span>都道府県</span>
-      </div>
-
-      {/* 伸び代：ul、liにしよう */}
-      <div className='app-prefectures-list-container'>
-        {prefectures?.map((item) => {
-          return (
-            <label key={item.prefCode} className='app-prefectures-list'>
-              <input
-                className='app-prefectures-list-checkbox'
-                type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-              />
-              <span className='app-prefectures-name'>{item.prefName}</span>
-            </label>
-          )
-        })}
-      </div>
-      <div className='container-chart'>
-        <HighchartsReact
-          highcharts={Highcharts}
-          constructorType={'chart'}
-          options={highchartsOptions}
-        />
-      </div>
+      </h1>
+      <section>
+        <h2 className='section-title'>
+          <span>都道府県</span>
+        </h2>
+        <ul className='app-prefectures-list'>
+          {prefectures?.map((item) => {
+            return (
+              <li key={item.prefCode} className='app-prefectures-list-item'>
+                <label>
+                  <input
+                    className='app-prefectures-list-checkbox'
+                    type='checkbox'
+                    onChange={(e) => handleCheckedPrefChange(e.target.checked, item.prefCode)}
+                  />
+                  <span className='app-prefectures-name'>{item.prefName}</span>
+                </label>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
+      <section aria-label='人口構成'>
+        <div className='container-chart'>
+          <HighchartsReact
+            highcharts={Highcharts}
+            constructorType={'chart'}
+            options={highchartsOptions}
+          />
+        </div>
+      </section>
     </div>
   )
 }

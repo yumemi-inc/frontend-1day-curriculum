@@ -21,22 +21,22 @@ a {
   text-decoration: none;
 }
 
-.container {
+.page-container {
   max-width: 1100px;
   margin: auto;
   padding: 0 20px;
 }
-.container-title {
+.page-title {
   text-align: center;
   margin-bottom: 1rem;
 }
-.container-main {
+.section-title {
   margin-bottom: 1rem;
 }
 .container-chart {
   padding-bottom: 2rem;
 }
-.app-prefectures-list-container {
+.app-prefectures-list {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -51,6 +51,7 @@ a {
   gap: 25px 25px;
   align-items: baseline;
   margin-right: auto;
+  list-style-type: none;
 }
 
 .app-prefectures-name {
@@ -62,7 +63,7 @@ a {
 .app-prefectures-list-checkbox {
   cursor: pointer;
 }
-.app-prefectures-list {
+.app-prefectures-list-item {
   min-width: 10%;
 }
 
@@ -129,21 +130,21 @@ input[type='checkbox']:checked:after {
 }
 
 @media screen and (max-width: 420px) {
-  .app-prefectures-list {
+  .app-prefectures-list-item {
     min-width: 28%;
   }
-  .container-title {
+  .page-title {
     font-size: 16px;
   }
-  .container-main {
+  .section-title {
     font-size: 14px;
   }
 }
 @media screen and (min-width: 421px) and (max-width: 914px) {
-  .app-prefectures-list {
+  .app-prefectures-list-item {
     min-width: 18%;
   }
-  .container-title {
+  .page-title {
     font-size: 18px;
   }
 }
