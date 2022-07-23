@@ -9,8 +9,8 @@ class Pop {
         },
       }
     )
-    return await res.json().then((res) => res.result.data);
-  };
+    return await res.json().then((res) => res.result.data)
+  }
 }
 
-export default new Pop();
+export default new Pop()

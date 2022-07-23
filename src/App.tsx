@@ -1,11 +1,13 @@
 import './App.css'
-import { useState, useEffect } from 'react'
-import getPrefData from './components/prefAPI'
+import { useState, useEffect, useMemo } from 'react'
+import getPrefData from './api/prefAPI'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
 import { makeNewStates } from './makeNewStates'
+import { LabeledCheckBox } from './components/LabeledCheckBox'
 
+// Highchartsに「表示するデータがありません」などのメッセージを表示するための処理。
 NoDataToDisplay(Highcharts)
 
 type PrefData = {
@@ -14,21 +16,29 @@ type PrefData = {
 }
 
 const App: React.FC = () => {
-  const [prefAry, setPrefAry] = useState<PrefData[]>([])
+  const [prefectures, setPrefectures] = useState<PrefData[]>([])
   const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
   const [loadedPrefData, setLoadedPrefData] = useState(
     new Map<number, number[]>()
   )
 
-  const graphData: { data: number[]; name: string }[] = checkedPrefCodes
-    .map((code) => prefAry.find((pref) => pref.prefCode === code))
-    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
-    .map((pref) => ({
+  const graphData: { name: string; data: number[] }[] = useMemo(() => {
+    const checkedPrefectures: PrefData[] = checkedPrefCodes.map((code) =>
+      prefectures.find((pref) => pref.prefCode === code)
+    )
+
+    const loadedPrefectures: PrefData[] = checkedPrefectures.filter(
+      (pref) => pref !== undefined && loadedPrefData.has(pref.prefCode)
+    )
+
+    return loadedPrefectures.map((pref) => ({
       name: pref!.prefName,
       data: [...loadedPrefData.get(pref!.prefCode)!],
     }))
+  }, [checkedPrefCodes, loadedPrefData, prefectures])
 
-  const options = {
+  // NOTE: 型を入れたかったが、エラーが起きて時間がかかりそうだったのでパス
+  const highchartsOptions = {
     chart: {
       type: 'spline',
       backgroundColor: '#fff',
@@ -100,10 +110,12 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefAry(data))
+    getPrefData.GetPref().then((data) => setPrefectures(data))
+    // 伸び代：エラーハンドリング。データ取得できたか確認
   }, [])
 
-  const handleChange = (checked: boolean, prefCode: number) => {
+  const handleCheckedPrefChange = (checked: boolean, prefCode: number) => {
+    // TODO: 名前にもう少し情報含まれてて欲しい
     makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
       (res) => {
         setCheckedPrefCodes(res.newCheckedPrefCodes)
@@ -113,35 +125,36 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className='container'>
-      <div className='h1 container-title'>
+    <div className='page-container'>
+      <h1 className='page-title'>
         <span>都道府県別の総人口推移グラフ</span>
-      </div>
-      <div className='h3 container-main'>
-        <span>都道府県</span>
-      </div>
-
-      <div className='app-prefectures-list-container'>
-        {prefAry?.map((item) => {
-          return (
-            <label key={item.prefCode} className='app-prefectures-list'>
-              <input
-                className='app-prefectures-list-checkbox'
-                type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-              />
-              <span className='app-prefectures-name'>{item.prefName}</span>
-            </label>
-          )
-        })}
-      </div>
-      <div className='container-chart'>
-        <HighchartsReact
-          highcharts={Highcharts}
-          constructorType={'chart'}
-          options={options}
-        />
-      </div>
+      </h1>
+      <section>
+        <h2 className='section-title'>
+          <span>都道府県</span>
+        </h2>
+        <ul className='app-prefectures-list'>
+          {prefectures?.map((item) => {
+            return (
+              <li key={item.prefCode} className='app-prefectures-list-item'>
+                <LabeledCheckBox
+                  label={item.prefName}
+                  onChange={(e) => handleCheckedPrefChange(e.target.checked, item.prefCode)}
+                />
+              </li>
+            )
+          })}
+        </ul>
+      </section>
+      <section aria-label='人口構成'>
+        <div className='container-chart'>
+          <HighchartsReact
+            highcharts={Highcharts}
+            constructorType={'chart'}
+            options={highchartsOptions}
+          />
+        </div>
+      </section>
     </div>
   )
 }
