@@ -5,6 +5,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
 import { makeNewStates } from './makeNewStates'
+import { PrefectureCheckBox } from './components/PrefectureCheckBox'
 
 NoDataToDisplay(Highcharts)
 
@@ -104,6 +105,7 @@ const App: React.FC = () => {
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
+    console.log(checked, prefCode)
     makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
       (res) => {
         setCheckedPrefCodes(res.newCheckedPrefCodes)
@@ -124,14 +126,12 @@ const App: React.FC = () => {
       <div className='app-prefectures-list-container'>
         {prefAry?.map((item) => {
           return (
-            <label key={item.prefCode} className='app-prefectures-list'>
-              <input
-                className='app-prefectures-list-checkbox'
-                type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-              />
-              <span className='app-prefectures-name'>{item.prefName}</span>
-            </label>
+            <PrefectureCheckBox
+              key={item.prefCode}
+              onChange={handleChange}
+              prefCode={item.prefCode}
+              prefName={item.prefName}
+            />
           )
         })}
       </div>

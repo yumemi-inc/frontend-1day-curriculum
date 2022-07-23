@@ -5,11 +5,12 @@ class Pop {
       {
         method: 'GET',
         headers: {
-          'X-API-KEY': 'Kzjb2lIu0Kfyv1rwZGhcuAaF706Y9n9MncX5Ivyg',
+          'X-API-KEY': `${process.env.REACT_APP_API_KEY}`,
         },
       }
     )
-    return await res.json().then((res) => res.result.data);
+    const result = await res.json()
+    return result.result.data
   };
 }
 
