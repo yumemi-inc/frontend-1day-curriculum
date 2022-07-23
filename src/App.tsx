@@ -6,6 +6,7 @@ import HighchartsReact from 'highcharts-react-official'
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
 import { makeNewStates } from './makeNewStates'
 
+// 伸び代：何これ？コメント書いて欲しいかも
 NoDataToDisplay(Highcharts)
 
 type PrefData = {
@@ -14,6 +15,7 @@ type PrefData = {
 }
 
 const App: React.FC = () => {
+  // 伸び代：prefecturesでよくない？
   const [prefAry, setPrefAry] = useState<PrefData[]>([])
   const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
   const [loadedPrefData, setLoadedPrefData] = useState(
@@ -27,7 +29,9 @@ const App: React.FC = () => {
       name: pref!.prefName,
       data: [...loadedPrefData.get(pref!.prefCode)!],
     }))
+    // 伸び代：filter後にmapした方が効率いいかも
 
+  // 伸び代：なんのオプション？型もあると嬉しい
   const options = {
     chart: {
       type: 'spline',
@@ -101,9 +105,12 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getPrefData.GetPref().then((data) => setPrefAry(data))
+    // 伸び代：エラーハンドリング。データ取得できたか確認
   }, [])
 
+  // 伸び代：名前にもう少し情報含まれてて欲しい
   const handleChange = (checked: boolean, prefCode: number) => {
+    // 伸び代：名前にもう少し情報含まれてて欲しい
     makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
       (res) => {
         setCheckedPrefCodes(res.newCheckedPrefCodes)
@@ -113,14 +120,19 @@ const App: React.FC = () => {
   }
 
   return (
+    // 伸び代：containerよりもう少し具体的な名前に（例：prefecture-graph-page）
+    // ページがふえたとき対策
     <div className='container'>
+      {/* 伸び代：h1タグにしよう */}
       <div className='h1 container-title'>
         <span>都道府県別の総人口推移グラフ</span>
       </div>
+      {/* 伸び代：h3タグにしよう */}
       <div className='h3 container-main'>
         <span>都道府県</span>
       </div>
 
+      {/* 伸び代：ul、liにしよう */}
       <div className='app-prefectures-list-container'>
         {prefAry?.map((item) => {
           return (

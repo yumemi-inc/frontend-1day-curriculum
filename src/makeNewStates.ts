@@ -1,5 +1,6 @@
 import getPopData from './components/popAPI'
 
+// 伸び代コメントもっと欲しい
 export const makeNewStates = async (
   checked: boolean,
   prefCode: number,

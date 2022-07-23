@@ -1,3 +1,5 @@
+// 伸び代：コンポーネントちゃうやん
+
 class Pop {
   FetchPop = async (code: number) => {
     const res = await fetch(
