@@ -1,20 +1,14 @@
 * {
   box-sizing: border-box;
-}
-/* 伸び代：なぜ3つに分かれている */
-* {
   margin: 0;
-}
-* {
   padding: 0;
 }
 
 html,
 body {
-  /* 伸び代：やたらとimportant */
-  height: 100vh !important;
-  color: #000 !important;
-  font-family: Arial, Helvetica, sans-serif !important;
+  height: 100vh;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -54,13 +48,13 @@ a {
   list-style-type: none;
 }
 
-.app-prefectures-name {
+.common-checkbox-label-text {
   margin-left: 1.8rem;
   font-size: 16px;
 }
 
-.app-prefectures-name,
-.app-prefectures-list-checkbox {
+.common-checkbox-label-text,
+.common-checkbox {
   cursor: pointer;
 }
 .app-prefectures-list-item {

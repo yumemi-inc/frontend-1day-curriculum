@@ -5,6 +5,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
 import { makeNewStates } from './makeNewStates'
+import { LabeledCheckBox } from './components/LabeledCheckBox'
 
 // Highchartsに「表示するデータがありません」などのメッセージを表示するための処理。
 NoDataToDisplay(Highcharts)
@@ -136,14 +137,10 @@ const App: React.FC = () => {
           {prefectures?.map((item) => {
             return (
               <li key={item.prefCode} className='app-prefectures-list-item'>
-                <label>
-                  <input
-                    className='app-prefectures-list-checkbox'
-                    type='checkbox'
-                    onChange={(e) => handleCheckedPrefChange(e.target.checked, item.prefCode)}
-                  />
-                  <span className='app-prefectures-name'>{item.prefName}</span>
-                </label>
+                <LabeledCheckBox
+                  label={item.prefName}
+                  onChange={(e) => handleCheckedPrefChange(e.target.checked, item.prefCode)}
+                />
               </li>
             )
           })}
