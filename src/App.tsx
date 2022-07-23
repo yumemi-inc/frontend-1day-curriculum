@@ -1,6 +1,6 @@
 import './App.css'
 import { useState, useEffect, useMemo } from 'react'
-import getPrefData from './components/prefAPI'
+import getPrefData from './api/prefAPI'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
@@ -36,8 +36,8 @@ const App: React.FC = () => {
     }))
   }, [checkedPrefCodes, loadedPrefData, prefectures])
 
-  // 伸び代：なんのオプション？型もあると嬉しい
-  const options = {
+  // NOTE: 型を入れたかったが、エラーが起きて時間がかかりそうだったのでパス
+  const highchartsOptions = {
     chart: {
       type: 'spline',
       backgroundColor: '#fff',
@@ -156,7 +156,7 @@ const App: React.FC = () => {
         <HighchartsReact
           highcharts={Highcharts}
           constructorType={'chart'}
-          options={options}
+          options={highchartsOptions}
         />
       </div>
     </div>

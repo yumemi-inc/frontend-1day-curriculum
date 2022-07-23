@@ -1,4 +1,4 @@
-import getPopData from "./components/popAPI";
+import getPopData from "./api/popAPI";
 
 // チェック状態の更新、データの状態の更新に分けられそう
 // カスタムフックにするとうまくできるかも知れない

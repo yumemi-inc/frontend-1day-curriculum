@@ -1,4 +1,3 @@
-// 伸び代：コンポーネントちゃうやん
 class Pref {
   GetPref = async () => {
     const res = await fetch(
