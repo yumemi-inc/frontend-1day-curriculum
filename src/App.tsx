@@ -1,5 +1,5 @@
 import './App.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import getPrefData from './components/prefAPI'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -21,17 +21,20 @@ const App: React.FC = () => {
     new Map<number, number[]>()
   )
 
-  const graphData: { data: number[]; name: string }[] = checkedPrefCodes
-    // チェックされた都道府県コード[] => PrefData[]
-    .map((code) => prefectures.find((pref) => pref.prefCode === code))
-    // PrefData[] => 人口情報取得済みのものだけにフィルタリング。
-    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
-    // (nameとdata（人口情報[]）を持ったオブジェクト)[]に変換
-    .map((pref) => ({
+  const graphData: { name: string; data: number[] }[] = useMemo(() => {
+    const checkedPrefectures: PrefData[] = checkedPrefCodes.map((code) =>
+      prefectures.find((pref) => pref.prefCode === code)
+    )
+
+    const loadedPrefectures: PrefData[] = checkedPrefectures.filter(
+      (pref) => pref !== undefined && loadedPrefData.has(pref.prefCode)
+    )
+
+    return loadedPrefectures.map((pref) => ({
       name: pref!.prefName,
       data: [...loadedPrefData.get(pref!.prefCode)!],
     }))
-    // 伸び代：filter後にmapした方が効率いいかも
+  }, [checkedPrefCodes, loadedPrefData, prefectures])
 
   // 伸び代：なんのオプション？型もあると嬉しい
   const options = {
