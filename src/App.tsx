@@ -1,6 +1,6 @@
 import './App.css'
 import { useState, useEffect } from 'react'
-import getPrefData from './components/prefAPI'
+import getPrefData from './utils/prefAPI'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
