@@ -6,7 +6,7 @@ import HighchartsReact from 'highcharts-react-official'
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
 import { makeNewStates } from './makeNewStates'
 
-// 伸び代：何これ？コメント書いて欲しいかも
+// Highchartsに「表示するデータがありません」などのメッセージを表示するための処理。
 NoDataToDisplay(Highcharts)
 
 type PrefData = {
@@ -15,16 +15,18 @@ type PrefData = {
 }
 
 const App: React.FC = () => {
-  // 伸び代：prefecturesでよくない？
-  const [prefAry, setPrefAry] = useState<PrefData[]>([])
+  const [prefectures, setPrefectures] = useState<PrefData[]>([])
   const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
   const [loadedPrefData, setLoadedPrefData] = useState(
     new Map<number, number[]>()
   )
 
   const graphData: { data: number[]; name: string }[] = checkedPrefCodes
-    .map((code) => prefAry.find((pref) => pref.prefCode === code))
+    // チェックされた都道府県コード[] => PrefData[]
+    .map((code) => prefectures.find((pref) => pref.prefCode === code))
+    // PrefData[] => 人口情報取得済みのものだけにフィルタリング。
     .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
+    // (nameとdata（人口情報[]）を持ったオブジェクト)[]に変換
     .map((pref) => ({
       name: pref!.prefName,
       data: [...loadedPrefData.get(pref!.prefCode)!],
@@ -104,7 +106,7 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefAry(data))
+    getPrefData.GetPref().then((data) => setPrefectures(data))
     // 伸び代：エラーハンドリング。データ取得できたか確認
   }, [])
 
@@ -134,7 +136,7 @@ const App: React.FC = () => {
 
       {/* 伸び代：ul、liにしよう */}
       <div className='app-prefectures-list-container'>
-        {prefAry?.map((item) => {
+        {prefectures?.map((item) => {
           return (
             <label key={item.prefCode} className='app-prefectures-list'>
               <input
