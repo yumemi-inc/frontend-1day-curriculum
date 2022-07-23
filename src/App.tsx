@@ -1,10 +1,11 @@
 import './App.css'
 import { useState, useEffect } from 'react'
-import getPrefData from './components/prefAPI'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
 import { makeNewStates } from './makeNewStates'
+import { PrefectureCheckBox } from './components/PrefectureCheckBox'
+import {fetchPrefectures} from "./utils/prefAPI";
 
 NoDataToDisplay(Highcharts)
 
@@ -100,7 +101,7 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefAry(data))
+    fetchPrefectures().then((data) => setPrefAry(data))
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
@@ -124,14 +125,12 @@ const App: React.FC = () => {
       <div className='app-prefectures-list-container'>
         {prefAry?.map((item) => {
           return (
-            <label key={item.prefCode} className='app-prefectures-list'>
-              <input
-                className='app-prefectures-list-checkbox'
-                type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-              />
-              <span className='app-prefectures-name'>{item.prefName}</span>
-            </label>
+            <PrefectureCheckBox
+              key={item.prefCode}
+              onChange={handleChange}
+              prefCode={item.prefCode}
+              prefName={item.prefName}
+            />
           )
         })}
       </div>
