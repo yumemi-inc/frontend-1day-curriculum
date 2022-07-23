@@ -1,11 +1,11 @@
 import './App.css'
 import { useState, useEffect } from 'react'
-import getPrefData from './utils/prefAPI'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
 import { makeNewStates } from './makeNewStates'
 import { PrefectureCheckBox } from './components/PrefectureCheckBox'
+import {fetchPrefectures} from "./utils/prefAPI";
 
 NoDataToDisplay(Highcharts)
 
@@ -101,7 +101,7 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefAry(data))
+    fetchPrefectures().then((data) => setPrefAry(data))
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
