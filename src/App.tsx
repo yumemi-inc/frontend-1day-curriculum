@@ -130,7 +130,8 @@ const App: React.FC = () => {
               key={item.prefCode}
               onChange={handleChange}
               prefCode={item.prefCode}
-              prefName={item.prefName} />
+              prefName={item.prefName}
+            />
           )
         })}
       </div>
