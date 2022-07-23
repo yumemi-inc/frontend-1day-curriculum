@@ -1,4 +1,4 @@
-import getPopData from './components/popAPI'
+import {fetchPopulation} from "./utils/fetchPopulation";
 
 export const makeNewStates = async (
   checked: boolean,
@@ -15,7 +15,7 @@ export const makeNewStates = async (
       newStates.newCheckedPrefCodes = [...checkedPrefCodes, prefCode]
     }
     if (!loadedPrefData.has(prefCode)) {
-      const res = await getPopData.FetchPop(prefCode)
+      const res = await fetchPopulation(prefCode)
 
       let newLoadedData = new Map(loadedPrefData)
       newLoadedData.set(
