@@ -1,40 +1,36 @@
 * {
   box-sizing: border-box;
-}
-* {
   margin: 0;
-}
-* {
   padding: 0;
 }
 
 html,
 body {
-  height: 100vh !important;
-  color: #000 !important;
-  font-family: Arial, Helvetica, sans-serif !important;
+  height: 100vh;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
   text-decoration: none;
 }
 
-.container {
+.page-container {
   max-width: 1100px;
   margin: auto;
   padding: 0 20px;
 }
-.container-title {
+.page-title {
   text-align: center;
   margin-bottom: 1rem;
 }
-.container-main {
+.section-title {
   margin-bottom: 1rem;
 }
 .container-chart {
   padding-bottom: 2rem;
 }
-.app-prefectures-list-container {
+.app-prefectures-list {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -49,21 +45,23 @@ a {
   gap: 25px 25px;
   align-items: baseline;
   margin-right: auto;
+  list-style-type: none;
 }
 
-.app-prefectures-name {
+.common-checkbox-label-text {
   margin-left: 1.8rem;
   font-size: 16px;
 }
 
-.app-prefectures-name,
-.app-prefectures-list-checkbox {
+.common-checkbox-label-text,
+.common-checkbox {
   cursor: pointer;
 }
-.app-prefectures-list {
+.app-prefectures-list-item {
   min-width: 10%;
 }
 
+/* 伸び代：グローバルにスタイル当てすぎ？クラス名とかにした方が良さげ？ */
 input[type='checkbox'] {
   position: absolute;
   cursor: pointer;
@@ -126,21 +124,21 @@ input[type='checkbox']:checked:after {
 }
 
 @media screen and (max-width: 420px) {
-  .app-prefectures-list {
+  .app-prefectures-list-item {
     min-width: 28%;
   }
-  .container-title {
+  .page-title {
     font-size: 16px;
   }
-  .container-main {
+  .section-title {
     font-size: 14px;
   }
 }
 @media screen and (min-width: 421px) and (max-width: 914px) {
-  .app-prefectures-list {
+  .app-prefectures-list-item {
     min-width: 18%;
   }
-  .container-title {
+  .page-title {
     font-size: 18px;
   }
 }
