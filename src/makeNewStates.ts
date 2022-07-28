@@ -1,10 +1,10 @@
-import getPopData from './components/popAPI'
+import getPopData from "./components/popAPI"
 
 export const makeNewStates = async (
   checked: boolean,
   prefCode: number,
   checkedPrefCodes: number[],
-  loadedPrefData: Map<number, number[]>
+  loadedPrefData: Map<number, number[]>,
 ) => {
   const newStates = {
     newCheckedPrefCodes: checkedPrefCodes,
@@ -17,10 +17,10 @@ export const makeNewStates = async (
     if (!loadedPrefData.has(prefCode)) {
       const res = await getPopData.FetchPop(prefCode)
 
-      let newLoadedData = new Map(loadedPrefData)
+      const newLoadedData = new Map(loadedPrefData)
       newLoadedData.set(
         prefCode,
-        res[0].data.map((item: any) => item.value)
+        res[0].data.map((item: any) => item.value),
       )
 
       newStates.fetchedNewLoadData = newLoadedData
@@ -28,7 +28,7 @@ export const makeNewStates = async (
     return newStates
   } else {
     newStates.newCheckedPrefCodes = checkedPrefCodes.filter(
-      (code) => code !== prefCode
+      (code) => code !== prefCode,
     )
     return newStates
   }

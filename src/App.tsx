@@ -1,10 +1,10 @@
-import './App.css'
-import { useState, useEffect } from 'react'
-import getPrefData from './components/prefAPI'
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
-import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
-import { makeNewStates } from './makeNewStates'
+import "./App.css"
+import { useState, useEffect } from "react"
+import getPrefData from "./components/prefAPI"
+import Highcharts from "highcharts"
+import HighchartsReact from "highcharts-react-official"
+import NoDataToDisplay from "highcharts/modules/no-data-to-display"
+import { makeNewStates } from "./makeNewStates"
 
 NoDataToDisplay(Highcharts)
 
@@ -17,7 +17,7 @@ const App: React.FC = () => {
   const [prefAry, setPrefAry] = useState<PrefData[]>([])
   const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
   const [loadedPrefData, setLoadedPrefData] = useState(
-    new Map<number, number[]>()
+    new Map<number, number[]>(),
   )
 
   const graphData: { data: number[]; name: string }[] = checkedPrefCodes
@@ -30,50 +30,50 @@ const App: React.FC = () => {
 
   const options = {
     chart: {
-      type: 'spline',
-      backgroundColor: '#fff',
+      type: "spline",
+      backgroundColor: "#fff",
       polar: true,
     },
     title: {
-      text: '人口構成',
+      text: "人口構成",
     },
     lang: {
-      noData: 'データがありません',
+      noData: "データがありません",
     },
     noData: {
       style: {
-        fontWeight: 'bold',
-        fontSize: '15px',
-        color: '#303030',
+        fontWeight: "bold",
+        fontSize: "15px",
+        color: "#303030",
       },
     },
     xAxis: {
       /* APIが返してくる年度はこれだった */
       categories: [
-        '1960',
-        '1965',
-        '1970',
-        '1975',
-        '1980',
-        '1985',
-        '1990',
-        '1995',
-        '2000',
-        '2005',
-        '2010',
-        '2015',
-        '2020',
-        '2025',
-        '2030',
-        '2035',
-        '2040',
-        '2045',
+        "1960",
+        "1965",
+        "1970",
+        "1975",
+        "1980",
+        "1985",
+        "1990",
+        "1995",
+        "2000",
+        "2005",
+        "2010",
+        "2015",
+        "2020",
+        "2025",
+        "2030",
+        "2035",
+        "2040",
+        "2045",
       ],
       offset: 0,
       title: {
-        text: '年度',
-        align: 'high',
-        textAlign: 'left',
+        text: "年度",
+        align: "high",
+        textAlign: "left",
         rotation: 0,
         offset: 0,
         margin: 0,
@@ -83,12 +83,12 @@ const App: React.FC = () => {
     },
     yAxis: {
       visible: true,
-      tickPosition: 'inside',
+      tickPosition: "inside",
       offset: 0,
       title: {
-        text: '人口数',
-        align: 'high',
-        textAlign: 'left',
+        text: "人口数",
+        align: "high",
+        textAlign: "left",
         rotation: 0,
         offset: 0,
         margin: 0,
@@ -108,7 +108,7 @@ const App: React.FC = () => {
       (res) => {
         setCheckedPrefCodes(res.newCheckedPrefCodes)
         setLoadedPrefData(res.fetchedNewLoadData)
-      }
+      },
     )
   }
 
@@ -138,7 +138,7 @@ const App: React.FC = () => {
       <div className='container-chart'>
         <HighchartsReact
           highcharts={Highcharts}
-          constructorType={'chart'}
+          constructorType={"chart"}
           options={options}
         />
       </div>
