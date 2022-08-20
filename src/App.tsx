@@ -25,8 +25,8 @@ const App: React.FC = () => {
     .map((code) => prefAry.find((pref) => pref.prefCode === code))
     .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
     .map((pref) => ({
-      name: pref!.prefName,
-      data: [...loadedPrefData.get(pref!.prefCode)!],
+      name: pref.prefName,
+      data: [...loadedPrefData.get(pref.prefCode)],
     }));
 
   const options = {
