@@ -10,5 +10,6 @@ root.render(
   <React.StrictMode>
     <App />
     <p>test</p>
+    <p>test</p>
   </React.StrictMode>,
 )
