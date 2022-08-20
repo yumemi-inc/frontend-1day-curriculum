@@ -4,7 +4,7 @@ import getPrefData from "./components/prefAPI"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
-import { makeNewStates } from "./makeNewStates"
+import { updateSelectedPrefData } from "./updateSelectedPrefData"
 import { ChkBx01 } from "./components/ChkBx01"
 
 NoDataToDisplay(Highcharts)
@@ -17,9 +17,8 @@ type PrefData = {
 export type CheckedPrefData = {
   prefCode: number;
   prefData: {
-    label:string;
-    data:{year:number,
-    value:number}[]
+    label: string;
+    data: { year: number; value: number }[];
   }[];
 };
 
@@ -37,7 +36,9 @@ const App: React.FC = () => {
       const prefData = prefAry.find((pref) => pref.prefCode === data.prefCode)
       return {
         name: prefData!.prefName,
-        data: data.prefData.find((value)=>value.label === "総人口").data.map((value)=> value.value),
+        data: data.prefData
+          .find((value) => value.label === "総人口")
+          .data.map((value) => value.value),
       }
     })
 
@@ -117,7 +118,7 @@ const App: React.FC = () => {
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
-    makeNewStates(checked, prefCode, checkedPrefData).then((res) => {
+    updateSelectedPrefData(checked, prefCode, checkedPrefData).then((res) => {
       setCheckedPrefData(res)
     })
   }

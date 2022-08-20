@@ -6,9 +6,9 @@
 
 ## App.tsx
 
-[] **checkedPrefCode, checkedPrefCodes をまとめられそう**
+[x] **checkedPrefCode, checkedPrefCodes をまとめられそう**
 [] options をコンポーネント外に出して、categories に大量に並んでいるものがライブラリ的には不要そう(範囲指定ができそう)
-[] `<label>` 内のコードをコンポーネント化
+[x] `<label>` 内のコードをコンポーネント化
 [] 関数で不要な `{}` がある
 [] `handleChange` を `useCallback` で囲みたい...が、使う側で関数になってしまっている
 
@@ -21,7 +21,7 @@
 
 ## components/ChkBx01.tsx
 
-[] **App.tsx で利用できるようにする**
+[x] **App.tsx で利用できるようにする**
 
 ## popAPI.tsx
 
@@ -31,7 +31,7 @@
 [] L12 の `then` 部分がややこしいので可読性をあげたい
 [] API key をベタ書きしているので環境変数に入れたい
 
-## makeNewStates.ts
+## updateSelectedPrefData.ts
 
 [] 命名が気になる
 [] 設計が気になる

@@ -16,7 +16,7 @@
 
 - /src/App.tsx
 - /src/App.css
-- /src/makeNewStates.ts
+- /src/updateSelectedPrefData.ts
 - /src/components/配下のファイル
 
 ### コードリーディングのポイント

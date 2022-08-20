@@ -1,14 +1,14 @@
 import { CheckedPrefData } from "./App"
 import getPopData from "./components/popAPI"
 
-export const makeNewStates = async (
+export const updateSelectedPrefData = async (
   checked: boolean,
   prefCode: number,
   checkedPrefData: CheckedPrefData[],
 ) => {
   let newCheckedPrefData = [...checkedPrefData] // returnされる
   if (checked) {
-    if (!checkedPrefData?.find((value)=> value.prefCode === prefCode)) {
+    if (!checkedPrefData?.find((value) => value.prefCode === prefCode)) {
       const prefData = await getPopData.FetchPop(prefCode)
       console.log(prefData)
       newCheckedPrefData.push({
