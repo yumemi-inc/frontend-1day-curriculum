@@ -1,5 +1,10 @@
+type PrefectureApiResponse = {
+  prefCode: number
+  prefName: string
+}[];
+
 class Pref {
-  GetPref = async () => {
+  GetPref = async (): Promise<PrefectureApiResponse> => {
     const res = await fetch(
       "https://opendata.resas-portal.go.jp/api/v1/prefectures",
       {
