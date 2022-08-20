@@ -115,29 +115,28 @@ const App: React.FC = () => {
 
   return (
     <div className="container">
-      {/* container-title -> title */}
-      <div className="h1 container-title">
+      <div className="title">
         <span>都道府県別の総人口推移グラフ</span>
       </div>
-      <div className="h3 container-main">
+      <div className="main">
         <span>都道府県</span>
       </div>
 
-      <div className="app-prefectures-list-container">
+      <div className="app-prefectures-lists">
         {prefAry?.map((item) => {
           return (
-            <label key={item.prefCode} className="app-prefectures-list">
+            <label key={item.prefCode} className="list">
               <input
-                className="app-prefectures-list-checkbox"
+                className="checkbox"
                 type="checkbox"
                 onChange={(e) => handleChange(e.target.checked, item.prefCode)}
               />
-              <span className="app-prefectures-name">{item.prefName}</span>
+              <span className="name">{item.prefName}</span>
             </label>
           );
         })}
       </div>
-      <div className="container-chart">
+      <div className="chart">
         <HighchartsReact
           highcharts={Highcharts}
           constructorType={'chart'}

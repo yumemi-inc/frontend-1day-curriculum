@@ -1,20 +1,14 @@
-/* ＊をまとめる */
 * {
   box-sizing: border-box;
-}
-* {
   margin: 0;
-}
-* {
   padding: 0;
 }
 
 html,
-/* importantを消す */
 body {
-  height: 100vh !important;
-  color: #000 !important;
-  font-family: Arial, Helvetica, sans-serif !important;
+  height: 100vh;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -26,18 +20,17 @@ a {
   margin: auto;
   padding: 0 20px;
 }
-/* container-title -> title */
-.container-title {
+.container .title {
   text-align: center;
   margin-bottom: 1rem;
 }
-.container-main {
+.container .main {
   margin-bottom: 1rem;
 }
-.container-chart {
+.container .chart {
   padding-bottom: 2rem;
 }
-.app-prefectures-list-container {
+.app-prefectures-lists {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -49,18 +42,18 @@ a {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  gap: 25px 25px;
+  gap: 25px;
   align-items: baseline;
   margin-right: auto;
 }
 
-.app-prefectures-name {
+.app-prefectures-lists .name {
   margin-left: 1.8rem;
   font-size: 16px;
 }
 
-.app-prefectures-name,
-.app-prefectures-list-checkbox {
+.app-prefectures-lists .name,
+.app-prefectures-lists .checkbox {
   cursor: pointer;
 }
 .app-prefectures-list {
@@ -103,7 +96,7 @@ input[type='checkbox']:after {
   width: 0px;
   height: 0px;
   border: solid #ffcb9a;
-  border-width: 0 0px 0px 0;
+  border-width: 0;
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
@@ -132,18 +125,18 @@ input[type='checkbox']:checked:after {
   .app-prefectures-list {
     min-width: 28%;
   }
-  .container-title {
+  .container .title {
     font-size: 16px;
   }
-  .container-main {
+  .container .main {
     font-size: 14px;
   }
 }
 @media screen and (min-width: 421px) and (max-width: 914px) {
-  .app-prefectures-list {
+  .app-prefectures .list {
     min-width: 18%;
   }
-  .container-title {
+  .container .title {
     font-size: 18px;
   }
 }
