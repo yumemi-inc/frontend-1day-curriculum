@@ -10,9 +10,14 @@ import { ChkBx01 } from "./components/ChkBx01"
 NoDataToDisplay(Highcharts)
 
 type PrefData = {
-  prefCode: number
-  prefName: string
-}
+  prefCode: number;
+  prefName: string;
+};
+
+export type CheckedPrefectureData = {
+  id: number;
+  value: number[];
+};
 
 const App: React.FC = () => {
   const [prefAry, setPrefAry] = useState<PrefData[]>([])
@@ -20,6 +25,9 @@ const App: React.FC = () => {
   const [loadedPrefData, setLoadedPrefData] = useState(
     new Map<number, number[]>(),
   )
+
+  const [checkedPrefectureData, setCheckedPrefectureData] =
+    useState<CheckedPrefectureData[]>()
 
   const graphData: { data: number[]; name: string }[] = checkedPrefCodes
     .map((code) => prefAry.find((pref) => pref.prefCode === code))
@@ -114,22 +122,27 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className='container'>
-      <div className='h1 container-title'>
+    <div className="container">
+      <div className="h1 container-title">
         <span>都道府県別の総人口推移グラフ</span>
       </div>
-      <div className='h3 container-main'>
+      <div className="h3 container-main">
         <span>都道府県</span>
       </div>
 
-      <div className='app-prefectures-list-container'>
+      <div className="app-prefectures-list-container">
         {prefAry?.map((item) => {
           return (
-            <ChkBx01 key={item.prefCode} name={item.prefName}  onChange={(e) => handleChange(e, item.prefCode)} checked={true}/>
+            <ChkBx01
+              key={item.prefCode}
+              name={item.prefName}
+              onChange={(e) => handleChange(e, item.prefCode)}
+              checked={true}
+            />
           )
         })}
       </div>
-      <div className='container-chart'>
+      <div className="container-chart">
         <HighchartsReact
           highcharts={Highcharts}
           constructorType={"chart"}

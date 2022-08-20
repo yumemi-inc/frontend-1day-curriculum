@@ -1,9 +1,11 @@
+import { CheckedPrefectureData } from "./App"
 import getPopData from "./components/popAPI"
 
 export const makeNewStates = async (
   checked: boolean,
   prefCode: number,
   checkedPrefCodes: number[],
+  // checkedPrefectureData: CheckedPrefectureData[],
   loadedPrefData: Map<number, number[]>,
 ) => {
   const newStates = {
