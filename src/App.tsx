@@ -1,5 +1,5 @@
 import "./App.css"
-import getPrefData from "./components/prefAPI"
+import { fetchPrefecture } from "./api/resas"
 import { makeNewStates } from "./makeNewStates"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
@@ -100,7 +100,7 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefAry(data))
+    fetchPrefecture().then((data) => setPrefAry(data))
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {

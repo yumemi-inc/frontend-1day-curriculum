@@ -44,11 +44,11 @@
 
 1. API キーを.env に移す
 2. API の型定義
-1. 定義した型を利用する
-1. categories のハードコードを fetch
-1. prefAry, checkedPrefCodes, loadedPrefData を全部 State に統一する
-1. fetch がクラスで定義されているので util 関数か何かに切り出したい
-1. makeNewStates: 改善して欲しそう
+3. 定義した型を利用する
+4. fetch がクラスで定義されているので util 関数か何かに切り出したい -> api に切り出して関数化
+5. categories のハードコードを fetch
+6. prefAry, checkedPrefCodes, loadedPrefData を全部 State に統一する
+7. makeNewStates: 改善して欲しそう
 
 ### better
 
