@@ -1,37 +1,24 @@
-import { CheckedPrefectureData } from "./App"
+import { CheckedPrefData } from "./App"
 import getPopData from "./components/popAPI"
 
 export const makeNewStates = async (
   checked: boolean,
   prefCode: number,
-  checkedPrefCodes: number[],
-  // checkedPrefectureData: CheckedPrefectureData[],
-  loadedPrefData: Map<number, number[]>,
+  checkedPrefData: CheckedPrefData[],
 ) => {
-  const newStates = {
-    newCheckedPrefCodes: checkedPrefCodes,
-    fetchedNewLoadData: loadedPrefData,
-  }
+  let newCheckedPrefData = checkedPrefData // returnされる
   if (checked) {
-    if (!checkedPrefCodes.includes(prefCode)) {
-      newStates.newCheckedPrefCodes = [...checkedPrefCodes, prefCode]
+    if (!checkedPrefData.includes(prefCode)) {
+      const prefData = await getPopData.FetchPop(prefCode)
+      newCheckedPrefData.push({
+        prefCode: prefCode,
+        prefData: prefData,
+      })
     }
-    if (!loadedPrefData.has(prefCode)) {
-      const res = await getPopData.FetchPop(prefCode)
-
-      const newLoadedData = new Map(loadedPrefData)
-      newLoadedData.set(
-        prefCode,
-        res[0].data.map((item: any) => item.value),
-      )
-
-      newStates.fetchedNewLoadData = newLoadedData
-    }
-    return newStates
   } else {
-    newStates.newCheckedPrefCodes = checkedPrefCodes.filter(
-      (code) => code !== prefCode,
+    newCheckedPrefData = checkedPrefData.filter(
+      (value) => value.prefCode !== prefCode,
     )
-    return newStates
   }
+  return newCheckedPrefData
 }

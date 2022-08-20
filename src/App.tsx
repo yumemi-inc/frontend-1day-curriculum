@@ -15,8 +15,8 @@ type PrefData = {
 };
 
 export type CheckedPrefectureData = {
-  id: number;
-  value: number[];
+  prefCode: number;
+  prefData: number[];
 };
 
 const App: React.FC = () => {
@@ -115,8 +115,9 @@ const App: React.FC = () => {
   const handleChange = (checked: boolean, prefCode: number) => {
     makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
       (res) => {
-        setCheckedPrefCodes(res.newCheckedPrefCodes)
-        setLoadedPrefData(res.fetchedNewLoadData)
+        /*setCheckedPrefCodes(res.newCheckedPrefCodes)
+        setLoadedPrefData(res.fetchedNewLoadData)*/
+        setCheckedPrefectureData(res)
       },
     )
   }
