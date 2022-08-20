@@ -47,6 +47,10 @@ a {
   margin-right: auto;
 }
 
+.app-prefectures-lists .list {
+  list-style: none;
+}
+
 .app-prefectures-lists .name {
   margin-left: 1.8rem;
   font-size: 16px;

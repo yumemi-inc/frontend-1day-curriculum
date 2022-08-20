@@ -1,10 +1,11 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import {GetPrefecture} from './components/getPrefectureAPI';
+import { GetPrefecture } from './components/getPrefectureAPI';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
 import { makeNewStates } from './makeNewStates';
+import { CheckBox } from './components/CheckBox';
 
 NoDataToDisplay(Highcharts);
 
@@ -121,20 +122,18 @@ const App: React.FC = () => {
         <span>都道府県</span>
       </div>
 
-      <div className="app-prefectures-lists">
+      <ul className="app-prefectures-lists">
         {prefAry?.map((item) => {
           return (
-            <label key={item.prefCode} className="list">
-              <input
-                className="checkbox"
-                type="checkbox"
+            <li key={item.prefCode} className="list">
+              <CheckBox
+                prefName={item.prefName}
                 onChange={(e) => handleChange(e.target.checked, item.prefCode)}
               />
-              <span className="name">{item.prefName}</span>
-            </label>
+            </li>
           );
         })}
-      </div>
+      </ul>
       <div className="chart">
         <HighchartsReact
           highcharts={Highcharts}
