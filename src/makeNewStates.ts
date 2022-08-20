@@ -7,7 +7,6 @@ export const fetchNewData = async (
 ) => {
   if (!checked || loadedPrefData.has(prefCode)) return loadedPrefData
 
-  // const res = await getPopData.FetchPop(prefCode)
   const res = await getPopulation(prefCode)
   const newLoadedData = new Map(loadedPrefData)
   newLoadedData.set(

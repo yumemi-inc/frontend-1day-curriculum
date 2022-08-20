@@ -10,7 +10,6 @@ export const usePrefectures = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([])
     
   useEffect(() => {
-    // getPrefData.GetPref().then((data) => setPrefectures(data))
     getPrefectures().then((data) => setPrefectures(data))
   }, [])
 
