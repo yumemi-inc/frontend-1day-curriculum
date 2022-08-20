@@ -6,6 +6,7 @@ import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
 import { makeNewStates } from "./makeNewStates"
 import { PrefData } from "./types"
+import { PrefectureCheckbox } from "./components/PrefectureCheckbox"
 
 NoDataToDisplay(Highcharts)
 
@@ -141,6 +142,7 @@ const App: React.FC = () => {
           options={options}
         />
       </div>
+      <PrefectureCheckbox name="hoge" />
     </div>
   )
 }

@@ -1,0 +1,84 @@
+.prefectures-name {
+  margin-left: 1.8rem;
+  font-size: 16px;
+}
+
+.prefectures-name,
+.prefectures-list-checkbox {
+  cursor: pointer;
+}
+.prefectures-list {
+  min-width: 10%;
+}
+
+.prefectures-list-checkbox {
+  position: absolute;
+  cursor: pointer;
+  width: 0px;
+  height: 0px;
+}
+
+.prefectures-list-checkbox:checked:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  border: 4px solid var(--primary);
+  border-radius: 20px;
+  background-color: var(--secondary);
+  transition: all 0.2s linear;
+}
+
+.prefectures-list-checkbox:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  border: 4px solid var(--primary);
+  border-radius: 3px;
+  background-color: var(--secondary);
+}
+
+.prefectures-list-checkbox:after {
+  content: "";
+  display: block;
+  width: 0px;
+  height: 0px;
+  border: solid var(--primary);
+  border-width: 0 0px 0px 0;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  position: absolute;
+  top: 0px;
+  left: 50px;
+  transition: all 0.2s linear;
+}
+
+.prefectures-list-checkbox:checked:after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 11px;
+  border: solid var(--primary);
+  border-width: 0 5px 5px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 7px;
+}
+
+@media screen and (max-width: 420px) {
+  .prefectures-list {
+    min-width: 28%;
+  }
+}
+@media screen and (min-width: 421px) and (max-width: 914px) {
+  .prefectures-list {
+    min-width: 18%;
+  }
+}
