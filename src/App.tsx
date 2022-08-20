@@ -54,7 +54,6 @@ const App: React.FC = () => {
         )}
       </div>
       <div className='container-chart'>
-        {/* 伸び代: ワーニングがコンソールに出ている */}
         <PopulationGraph
           graphData={graphData}
         />
