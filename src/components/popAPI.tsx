@@ -5,7 +5,7 @@ class Pop {
       {
         method: "GET",
         headers: {
-          "X-API-KEY": "Kzjb2lIu0Kfyv1rwZGhcuAaF706Y9n9MncX5Ivyg",
+          "X-API-KEY": process.env.REACT_APP_API_KEY,
         },
       },
     )
