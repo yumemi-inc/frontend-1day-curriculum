@@ -2,6 +2,7 @@ import React from "react"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
+import Accessibility from "highcharts/modules/accessibility"
 import { PopulationGraphData } from "../../types"
 
 export type PopulationGraphProps = {
@@ -9,6 +10,7 @@ export type PopulationGraphProps = {
 };
 
 NoDataToDisplay(Highcharts)
+Accessibility(Highcharts)
 
 export const PopulationGraph: React.FC<PopulationGraphProps> = ({
   graphData,
