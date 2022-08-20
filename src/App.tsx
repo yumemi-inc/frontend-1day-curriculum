@@ -1,10 +1,10 @@
 import "./App.css"
-import { useState, useEffect } from "react"
 import getPrefData from "./components/prefAPI"
+import { makeNewStates } from "./makeNewStates"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
-import { makeNewStates } from "./makeNewStates"
+import { useState, useEffect } from "react"
 
 NoDataToDisplay(Highcharts)
 
@@ -113,29 +113,29 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className='container'>
-      <div className='h1 container-title'>
+    <div className="container">
+      <div className="h1 container-title">
         <span>都道府県別の総人口推移グラフ</span>
       </div>
-      <div className='h3 container-main'>
+      <div className="h3 container-main">
         <span>都道府県</span>
       </div>
 
-      <div className='app-prefectures-list-container'>
+      <div className="app-prefectures-list-container">
         {prefAry?.map((item) => {
           return (
-            <label key={item.prefCode} className='app-prefectures-list'>
+            <label key={item.prefCode} className="app-prefectures-list">
               <input
-                className='app-prefectures-list-checkbox'
-                type='checkbox'
+                className="app-prefectures-list-checkbox"
+                type="checkbox"
                 onChange={(e) => handleChange(e.target.checked, item.prefCode)}
               />
-              <span className='app-prefectures-name'>{item.prefName}</span>
+              <span className="app-prefectures-name">{item.prefName}</span>
             </label>
           )
         })}
       </div>
-      <div className='container-chart'>
+      <div className="container-chart">
         <HighchartsReact
           highcharts={Highcharts}
           constructorType={"chart"}
