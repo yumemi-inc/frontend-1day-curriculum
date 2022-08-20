@@ -10,8 +10,8 @@ import { makeNewStates } from "./makeNewStates"
 NoDataToDisplay(Highcharts)
 
 type Prefecture = {
-  code: number
-  name: string
+  prefCode: number
+  prefName: string
 }
 
 const App: React.FC = () => {
@@ -22,11 +22,11 @@ const App: React.FC = () => {
   )
 
   const graphData: { data: number[]; name: string }[] = checkedPrefecutureCodes
-    .map((code) => prefecutures.find((pref) => pref.code === code))
-    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.code))
+    .map((code) => prefecutures.find((pref) => pref.prefCode === code))
+    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
     .map((pref) => ({
-      name: pref!.name,
-      data: [...loadedPrefData.get(pref!.code)!],
+      name: pref!.prefName,
+      data: [...loadedPrefData.get(pref!.prefCode)!],
     }))
 
   const options = {
@@ -125,13 +125,13 @@ const App: React.FC = () => {
       <div className='app-prefectures-list-container'>
         {prefecutures?.map((item) => {
           return (
-            <label key={item.code} className='app-prefectures-list'>
+            <label key={item.prefCode} className='app-prefectures-list'>
               <input
                 className='app-prefectures-list-checkbox'
                 type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.code)}
+                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
               />
-              <span className='app-prefectures-name'>{item.name}</span>
+              <span className='app-prefectures-name'>{item.prefName}</span>
             </label>
           )
         })}
