@@ -15,10 +15,12 @@ const App: React.FC = () => {
 
   const graphData: PopulationGraphData[] = checkedPrefCodes
     .map((code) => prefAry.find((pref) => pref.prefCode === code))
-    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
-    .map((pref) => ({
-      name: pref!.prefName,
-      data: [...loadedPrefData.get(pref!.prefCode)!],
+    .filter((pref): pref is PrefData => pref != null)
+    .map((pref) => [pref.prefName, loadedPrefData.get(pref.prefCode)] as const)
+    .filter((record): record is readonly [string, number[]] => record[1] != null)
+    .map(([prefName, prefPopulations]) => ({
+      name: prefName,
+      data: Array.from(prefPopulations),
     }))
 
   useEffect(() => {
