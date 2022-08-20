@@ -1,12 +1,11 @@
 export type CheckBoxProps = {
   label: string
-  checked: boolean
   onChange: React.ChangeEventHandler<HTMLInputElement>
 }
 
-export const CheckBox: React.FC<CheckBoxProps> = ({ label, checked, onChange }) => {
-  return <label>
-    <input type="checkbox" checked={checked} onChange={onChange}/>
-    <span>{ label }</span>
+export const CheckBox: React.FC<CheckBoxProps> = ({ label, onChange }) => {
+  return <label className="app-prefectures-list">
+    <input className='app-prefectures-list-checkbox' type="checkbox" onChange={onChange}/>
+    <span className='app-prefectures-name'>{ label }</span>
   </label>
 }
