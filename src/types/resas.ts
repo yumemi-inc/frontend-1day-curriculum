@@ -14,3 +14,13 @@ interface PopulationData {
     rate?: number
   }[]
 }
+
+export interface PrefectureResponse {
+  message: string | null
+  result: Prefecture[]
+}
+
+export interface Prefecture {
+  prefCode: number
+  prefName: string
+}
