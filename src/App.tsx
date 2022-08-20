@@ -6,6 +6,7 @@ import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
 import { makeNewStates } from "./makeNewStates"
 
+// 「表示するデータがありません」などのメッセージを表示するため
 NoDataToDisplay(Highcharts)
 
 type PrefData = {
