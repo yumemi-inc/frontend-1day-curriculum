@@ -108,7 +108,7 @@ const App: React.FC = () => {
     makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
       (res) => {
         setCheckedPrefCodes(res.newCheckedPrefCodes);
-        setLoadedPrefData(res.fetchedNewLoadData);
+        setLoadedPrefData(res.fetchedNewLoadDataCache);
       },
     );
   };
