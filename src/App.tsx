@@ -3,8 +3,6 @@ import { fetchPopulation, fetchPrefecture } from "./api/resas"
 import "./App.css"
 import { PopulationGraph } from "./components/PopulationGraph"
 import { PrefectureCheckbox } from "./components/PrefectureCheckbox"
-import { makeNewStates } from "./makeNewStates"
-import { Prefecture } from "./types/resas"
 import { checksPrefeture, newPrefectureState, PrefectureState, StateMap, unchecksPrefeture } from "./states"
 
 const App: React.FC = () => {
@@ -18,7 +16,7 @@ const App: React.FC = () => {
         return []
       }
 
-      return [{ data: value.populationValue, name: value.prefecture.prefName }]
+      return [{ data: [...value.populationValue], name: value.prefecture.prefName }]
     })
 
   /*
