@@ -17,16 +17,16 @@ type Prefecture = {
 const App: React.FC = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([])
   const [checkedPrefectureCodes, setCheckedPrefectureCodes] = useState<number[]>([])
-  const [loadedPrefData, setLoadedPrefData] = useState(
+  const [cachedPrefecturesData, setCachedPrefecturesData] = useState(
     new Map<number, number[]>(),
   )
 
   const graphData: { data: number[]; name: string }[] = 
   prefectures
-    .filter((prefecture) => checkedPrefectureCodes.includes(prefecture.prefCode) && loadedPrefData.has(prefecture.prefCode))
+    .filter((prefecture) => checkedPrefectureCodes.includes(prefecture.prefCode) && cachedPrefecturesData.has(prefecture.prefCode))
     .map((pref) => ({
       name: pref.prefName,
-      data: [...loadedPrefData.get(pref.prefCode)],
+      data: [...cachedPrefecturesData.get(pref.prefCode)],
     }))
 
   const options = {
@@ -106,7 +106,7 @@ const App: React.FC = () => {
 
   const handleChange = async (checked: boolean, prefCode: number) => {
     setCheckedPrefectureCodes(updateCheckedPrefCodes(checked, prefCode, checkedPrefectureCodes))
-    setLoadedPrefData(await fetchNewData(checked, prefCode, loadedPrefData))
+    setCachedPrefecturesData(await fetchNewData(checked, prefCode, cachedPrefecturesData))
   }
 
   return (
