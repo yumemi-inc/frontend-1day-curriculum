@@ -43,3 +43,14 @@ api 周りのリファクタリング
 - `CheckBox.tsx` を作成して、`App.tsx` 内のチェックボックスをコンポーネントとして切り出し
 - チェックボックスを `div` ではなく `ul`、`li` で並べるようにした
 - `eslint` の更新
+
+## haru (9d1dca483011e50e270eeb159ca8154bda01c5b1)
+
+makeNewStates の討伐
+
+- [ここ](https://github.com/yumemi-inc/frontend-1day-curriculum/tree/intern_20220820_team5/src#makenewstatests) を見るとわかりやすい
+- フローを「人口情報データ取得」->「チェックデータの更新」に分け、それぞれを関数として分離
+
+## kensiiwasaki (64d44117d6a61d4893f443b7740912e9763f959e, 64d44117d6a61d4893f443b7740912e9763f959e)
+
+eslint で吐かれている場所の修正
