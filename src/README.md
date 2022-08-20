@@ -75,7 +75,7 @@ subgraph 6["src"]
 7["App.css"]
 8["App.tsx"]
 subgraph 9["components"]
-a["ChkBx01.tsx"]
+a["CheckBox.tsx"]
 b["fetchPopulationAPI.tsx"]
 c["getPrefectureAPI.tsx"]
 end
@@ -87,6 +87,7 @@ h["react-app-env.d.ts"]
 i["setupTests.ts"]
 end
 8-->7
+8-->a
 8-->c
 8-->g
 8-->2
