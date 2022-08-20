@@ -1,35 +1,55 @@
-import getPopData from "./components/popAPI"
+import { FetchPopulation } from './components/fetchPopulationAPI';
 
 export const makeNewStates = async (
   checked: boolean,
-  prefCode: number,
+  newCheckedPrefCode: number,
   checkedPrefCodes: number[],
-  loadedPrefData: Map<number, number[]>,
+  loadedPrefDataCache: Map<number, number[]>,
 ) => {
   const newStates = {
     newCheckedPrefCodes: checkedPrefCodes,
-    fetchedNewLoadData: loadedPrefData,
+    fetchedNewLoadDataCache: loadedPrefDataCache,
+  };
+
+  if (checked && !loadedPrefDataCache.has(newCheckedPrefCode)) {
+    newStates.fetchedNewLoadDataCache = await updateLoadedDataCache(
+      newCheckedPrefCode,
+      loadedPrefDataCache,
+    );
   }
+
+  newStates.newCheckedPrefCodes = updateCheckedPrefCodes(
+    checked,
+    checkedPrefCodes,
+    newCheckedPrefCode,
+  );
+
+  return newStates;
+};
+
+const updateLoadedDataCache = async (
+  newCheckedPrefCode: number,
+  loadedPrefDataCache: Map<number, number[]>,
+) => {
+  const res = await FetchPopulation(newCheckedPrefCode);
+  const newLoadedData = new Map(loadedPrefDataCache);
+  newLoadedData.set(
+    newCheckedPrefCode,
+    res[0].data.map((item) => item.value),
+  );
+  return newLoadedData;
+};
+
+const updateCheckedPrefCodes = (
+  checked: boolean,
+  checkedPrefCodes: number[],
+  newCheckedPrefCode: number,
+) => {
   if (checked) {
-    if (!checkedPrefCodes.includes(prefCode)) {
-      newStates.newCheckedPrefCodes = [...checkedPrefCodes, prefCode]
+    if (!checkedPrefCodes.includes(newCheckedPrefCode)) {
+      return [...checkedPrefCodes, newCheckedPrefCode];
     }
-    if (!loadedPrefData.has(prefCode)) {
-      const res = await getPopData.FetchPop(prefCode)
-
-      const newLoadedData = new Map(loadedPrefData)
-      newLoadedData.set(
-        prefCode,
-        res[0].data.map((item: any) => item.value),
-      )
-
-      newStates.fetchedNewLoadData = newLoadedData
-    }
-    return newStates
   } else {
-    newStates.newCheckedPrefCodes = checkedPrefCodes.filter(
-      (code) => code !== prefCode,
-    )
-    return newStates
+    return checkedPrefCodes.filter((code) => code !== newCheckedPrefCode);
   }
-}
+};
