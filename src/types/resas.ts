@@ -1,12 +1,12 @@
-export interface Population {
+export interface PopulationResponse {
   message: string | null
   result: {
     boundaryYear: number
-    data: PopulationData[]
+    data: Population[]
   }
 }
 
-interface PopulationData {
+interface Population {
   label: string
   data: {
     year: number
