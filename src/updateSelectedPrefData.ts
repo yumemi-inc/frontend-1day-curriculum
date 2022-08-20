@@ -1,5 +1,5 @@
 import { SelectedPrefData } from "./App"
-import getPopData from "./components/popAPI"
+import { fetchPopulation } from "./components/popAPI"
 
 export const updateSelectedPrefData = async (
   selected: boolean,
@@ -9,7 +9,7 @@ export const updateSelectedPrefData = async (
   let newSelectedPrefData = [...selectedPrefData] // returnされる
   if (selected) {
     if (!selectedPrefData?.find((value) => value.prefCode === prefCode)) {
-      const prefData = await getPopData.FetchPop(prefCode)
+      const prefData = await fetchPopulation(prefCode)
       console.log(prefData)
       newSelectedPrefData.push({
         prefCode: prefCode,
