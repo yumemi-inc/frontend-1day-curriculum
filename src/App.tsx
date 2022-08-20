@@ -5,38 +5,60 @@ import { PopulationGraph } from "./components/PopulationGraph"
 import { PrefectureCheckbox } from "./components/PrefectureCheckbox"
 import { makeNewStates } from "./makeNewStates"
 import { Prefecture } from "./types/resas"
+import { checksPrefeture, newPrefectureState, PrefectureState, StateMap, unchecksPrefeture } from "./states"
 
 const App: React.FC = () => {
-  const [prefAry, setPrefAry] = useState<Prefecture[]>([])
-  const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
-  const [loadedPrefData, setLoadedPrefData] = useState(
-    new Map<number, number[]>(),
-  )
+  const [stateMap, setStateMap] = useState<StateMap | undefined>()
 
   const [years, setYears] = useState<number[] | undefined>()
 
-  const graphData: { data: number[]; name: string }[] = checkedPrefCodes
+  const graphData: { data: number[]; name: string }[] = (stateMap ? Array.from(stateMap) : [])
+    .flatMap(([_key, value]) => {
+      if (!value.checked || value.populationValue === undefined) {
+        return []
+      }
+
+      return [{ data: value.populationValue, name: value.prefecture.prefName }]
+    })
+
+  /*
     .map((code) => prefAry.find((pref) => pref.prefCode === code))
     .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
     .map((pref) => ({
       name: pref!.prefName,
       data: [...loadedPrefData.get(pref!.prefCode)!],
     }))
+    */
 
   useEffect(() => {
     fetchPopulation(1).then((popres) =>
       setYears(popres[0].data.map((prefs) => prefs.year)),
     )
-    fetchPrefecture().then((data) => setPrefAry(data))
+    // fetchPrefecture().then((data) => setPrefAry(data))
+
+    fetchPrefecture().then((data) => {
+      const kvs = data.map(({prefCode, prefName}): [number, PrefectureState] => [prefCode, newPrefectureState({ prefCode, prefName })] )
+      setStateMap(new Map(kvs))
+    })
   }, [])
 
-  const handleChange = (checked: boolean, prefCode: number) => {
+  const handleChange = async (checked: boolean, prefCode: number) => {
+
+    /*
     makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
       (res) => {
         setCheckedPrefCodes(res.newCheckedPrefCodes)
         setLoadedPrefData(res.fetchedNewLoadData)
       },
     )
+    */
+
+    if (stateMap  == undefined) {
+      return
+    }
+
+    const newState = checked ? await checksPrefeture(prefCode, stateMap) : unchecksPrefeture(prefCode, stateMap)
+    setStateMap(newState)
   }
 
   return (
@@ -49,12 +71,12 @@ const App: React.FC = () => {
       </div>
 
       <div className="app-prefectures-list-container">
-        {prefAry?.map((item) => {
+        {Array.from(stateMap?.values() ?? []).map((item) => {
           return (
             <PrefectureCheckbox
-              key={item.prefCode}
-              prefecture={item}
-              onChange={(e) => handleChange(e.target.checked, item.prefCode)}
+              key={item.prefecture.prefCode}
+              prefecture={item.prefecture}
+              onChange={(e) => handleChange(e.target.checked, item.prefecture.prefCode)}
             />
           )
         })}
