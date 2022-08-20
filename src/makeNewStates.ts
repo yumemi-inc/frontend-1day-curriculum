@@ -1,35 +1,32 @@
-import getPopData from "./components/popAPI"
+import { getPopulation } from "./api/api"
 
-export const makeNewStates = async (
+export const fetchNewData = async (  
+  checked: boolean,
+  prefCode: number,
+  loadedPrefData: Map<number, number[]>,
+) => {
+  if (!checked || loadedPrefData.has(prefCode)) return loadedPrefData
+
+  const res = await getPopulation(prefCode)
+  const newLoadedData = new Map(loadedPrefData)
+  newLoadedData.set(
+    prefCode,
+    res[0].data.map((item: any) => item.value),
+  )
+
+  return newLoadedData
+}
+
+export const updateCheckedPrefCodes = (
   checked: boolean,
   prefCode: number,
   checkedPrefCodes: number[],
-  loadedPrefData: Map<number, number[]>,
 ) => {
-  const newStates = {
-    newCheckedPrefCodes: checkedPrefCodes,
-    fetchedNewLoadData: loadedPrefData,
-  }
-  if (checked) {
-    if (!checkedPrefCodes.includes(prefCode)) {
-      newStates.newCheckedPrefCodes = [...checkedPrefCodes, prefCode]
-    }
-    if (!loadedPrefData.has(prefCode)) {
-      const res = await getPopData.FetchPop(prefCode)
+  if (!checked) return checkedPrefCodes.filter((code) => code !== prefCode)
 
-      const newLoadedData = new Map(loadedPrefData)
-      newLoadedData.set(
-        prefCode,
-        res[0].data.map((item: any) => item.value),
-      )
-
-      newStates.fetchedNewLoadData = newLoadedData
-    }
-    return newStates
-  } else {
-    newStates.newCheckedPrefCodes = checkedPrefCodes.filter(
-      (code) => code !== prefCode,
-    )
-    return newStates
+  if (!checkedPrefCodes.includes(prefCode)) {
+    return [...checkedPrefCodes, prefCode]
   }
+
+  return checkedPrefCodes 
 }

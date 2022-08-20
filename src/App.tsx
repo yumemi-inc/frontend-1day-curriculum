@@ -1,31 +1,28 @@
 import "./App.css"
-import { useState, useEffect } from "react"
-import getPrefData from "./components/prefAPI"
+import { useCallback, useState } from "react"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
-import { makeNewStates } from "./makeNewStates"
+import { updateCheckedPrefCodes, fetchNewData } from "./makeNewStates"
+import { CheckBox } from "./components/CheckBox"
+import { usePrefectures } from "./usePrefectures"
 
+// 「表示するデータがありません」などのメッセージを表示するため
 NoDataToDisplay(Highcharts)
 
-type PrefData = {
-  prefCode: number
-  prefName: string
-}
-
 const App: React.FC = () => {
-  const [prefAry, setPrefAry] = useState<PrefData[]>([])
-  const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
-  const [loadedPrefData, setLoadedPrefData] = useState(
+  const prefectures = usePrefectures()
+  const [checkedPrefectureCodes, setCheckedPrefectureCodes] = useState<number[]>([])
+  const [cachedPrefecturesData, setCachedPrefecturesData] = useState(
     new Map<number, number[]>(),
   )
 
-  const graphData: { data: number[]; name: string }[] = checkedPrefCodes
-    .map((code) => prefAry.find((pref) => pref.prefCode === code))
-    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
+  const graphData: { data: number[]; name: string }[] = 
+  prefectures
+    .filter((prefecture) => checkedPrefectureCodes.includes(prefecture.prefCode) && cachedPrefecturesData.has(prefecture.prefCode))
     .map((pref) => ({
-      name: pref!.prefName,
-      data: [...loadedPrefData.get(pref!.prefCode)!],
+      name: pref.prefName,
+      data: [...cachedPrefecturesData.get(pref.prefCode)],
     }))
 
   const options = {
@@ -99,39 +96,20 @@ const App: React.FC = () => {
     series: graphData,
   }
 
-  useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefAry(data))
-  }, [])
-
-  const handleChange = (checked: boolean, prefCode: number) => {
-    makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
-      (res) => {
-        setCheckedPrefCodes(res.newCheckedPrefCodes)
-        setLoadedPrefData(res.fetchedNewLoadData)
-      },
-    )
-  }
+  const handleChange = useCallback(async (checked: boolean, prefCode: number) => {
+    setCheckedPrefectureCodes(updateCheckedPrefCodes(checked, prefCode, checkedPrefectureCodes))
+    setCachedPrefecturesData(await fetchNewData(checked, prefCode, cachedPrefecturesData))
+  }, []) 
 
   return (
     <div className='container'>
-      <div className='h1 container-title'>
-        <span>都道府県別の総人口推移グラフ</span>
-      </div>
-      <div className='h3 container-main'>
-        <span>都道府県</span>
-      </div>
+      <h1 className='container-title'>都道府県別の総人口推移グラフ</h1>
+      <h3 className='container-main'>都道府県</h3>
 
       <div className='app-prefectures-list-container'>
-        {prefAry?.map((item) => {
+        {prefectures?.map((item) => {
           return (
-            <label key={item.prefCode} className='app-prefectures-list'>
-              <input
-                className='app-prefectures-list-checkbox'
-                type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-              />
-              <span className='app-prefectures-name'>{item.prefName}</span>
-            </label>
+            <CheckBox key={item.prefCode} label={item.prefName} onChange={(e) => handleChange(e.target.checked, item.prefCode)} />
           )
         })}
       </div>
