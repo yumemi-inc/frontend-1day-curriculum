@@ -1,3 +1,10 @@
+import { PopulationResponse } from "../types/resas"
+
+function isPopulationResponse(data: any): data is PopulationResponse {
+  if (!("message" in data) || !("result" in data)) return false
+  return true
+}
+
 class Pop {
   FetchPop = async (code: number) => {
     const res = await fetch(
@@ -5,11 +12,16 @@ class Pop {
       {
         method: "GET",
         headers: {
-          "X-API-KEY": "Kzjb2lIu0Kfyv1rwZGhcuAaF706Y9n9MncX5Ivyg",
+          "X-API-KEY": process.env.REACT_APP_API_KEY,
         },
       },
     )
-    return await res.json().then((res) => res.result.data)
+    const resData = await res.json()
+    if (!isPopulationResponse(resData)) {
+      return undefined
+    }
+    const { data: population } = resData.result
+    return population
   }
 }
 
