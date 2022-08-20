@@ -8,7 +8,6 @@ import { makeNewStates } from "./makeNewStates"
 
 NoDataToDisplay(Highcharts)
 
-
 type PrefData = {
   prefCode: number
   prefName: string
@@ -50,6 +49,7 @@ const App: React.FC = () => {
     },
     xAxis: {
       /* APIが返してくる年度はこれだった */
+      // 配列簡潔に書きたい
       categories: [
         "1960",
         "1965",
@@ -115,6 +115,7 @@ const App: React.FC = () => {
 
   return (
     <div className='container'>
+      {/* container-title -> title */}
       <div className='h1 container-title'>
         <span>都道府県別の総人口推移グラフ</span>
       </div>

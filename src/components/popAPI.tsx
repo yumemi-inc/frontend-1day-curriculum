@@ -1,3 +1,4 @@
+// 関数のみのエクスポートではダメか
 class Pop {
   FetchPop = async (code: number) => {
     const res = await fetch(

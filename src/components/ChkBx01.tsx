@@ -3,6 +3,7 @@ import { useState } from "react"
 
 export type ChkBx01Props = {
   name: string
+  // 県コード必要
 }
 
 // 都道府県1つ分のチェックボックス

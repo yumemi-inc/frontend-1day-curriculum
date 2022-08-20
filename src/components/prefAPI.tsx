@@ -1,3 +1,4 @@
+// 関数のみのエクスポートではダメか
 class Pref {
   GetPref = async () => {
     const res = await fetch(
