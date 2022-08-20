@@ -1,22 +1,17 @@
 import "./App.css"
-import { useState, useEffect } from "react"
-import getPrefData from "./components/prefAPI"
+import { useState } from "react"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
 import { updateCheckedPrefCodes, fetchNewData } from "./makeNewStates"
 import { CheckBox } from "./components/CheckBox"
+import { usePrefectures } from "./usePrefectures"
 
 // 「表示するデータがありません」などのメッセージを表示するため
 NoDataToDisplay(Highcharts)
 
-type Prefecture = {
-  prefCode: number
-  prefName: string
-}
-
 const App: React.FC = () => {
-  const [prefectures, setPrefectures] = useState<Prefecture[]>([])
+  const prefectures = usePrefectures()
   const [checkedPrefectureCodes, setCheckedPrefectureCodes] = useState<number[]>([])
   const [cachedPrefecturesData, setCachedPrefecturesData] = useState(
     new Map<number, number[]>(),
@@ -100,10 +95,6 @@ const App: React.FC = () => {
     },
     series: graphData,
   }
-
-  useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefectures(data))
-  }, [])
 
   const handleChange = async (checked: boolean, prefCode: number) => {
     setCheckedPrefectureCodes(updateCheckedPrefCodes(checked, prefCode, checkedPrefectureCodes))
