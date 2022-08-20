@@ -9,13 +9,13 @@ import { makeNewStates } from "./makeNewStates"
 // 「表示するデータがありません」などのメッセージを表示するため
 NoDataToDisplay(Highcharts)
 
-type PrefectureData = {
+type Prefecture = {
   code: number
   name: string
 }
 
 const App: React.FC = () => {
-  const [prefecutures, setPrefecutures] = useState<PrefectureData[]>([])
+  const [prefecutures, setPrefecutures] = useState<Prefecture[]>([])
   const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
   const [loadedPrefData, setLoadedPrefData] = useState(
     new Map<number, number[]>(),
