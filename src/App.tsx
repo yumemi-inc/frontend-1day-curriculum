@@ -14,27 +14,23 @@ type PrefData = {
   prefName: string;
 };
 
-export type CheckedPrefectureData = {
+export type CheckedPrefData = {
   prefCode: number;
   prefData: number[];
 };
 
 const App: React.FC = () => {
   const [prefAry, setPrefAry] = useState<PrefData[]>([])
-  const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
-  const [loadedPrefData, setLoadedPrefData] = useState(
-    new Map<number, number[]>(),
-  )
+  const [checkedPrefData, setCheckedPrefData] =
+    useState<CheckedPrefData[]>([])
 
-  const [checkedPrefectureData, setCheckedPrefectureData] =
-    useState<CheckedPrefectureData[]>()
-
-  const graphData: { data: number[]; name: string }[] = checkedPrefCodes
-    .map((code) => prefAry.find((pref) => pref.prefCode === code))
-    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
+  const graphData: { data: number[]; name: string }[] = checkedPrefData 
+    
+    .map((code) => prefAry.find((pref) => /*pref.prefCode === code*/true))
+    .filter((pref) => pref !== undefined && /*loadedPrefData.has(pref.prefCode)*/ true)
     .map((pref) => ({
       name: pref!.prefName,
-      data: [...loadedPrefData.get(pref!.prefCode)!],
+      data: /*[...loadedPrefData.get(pref!.prefCode)!]*/[],
     }))
 
   const options = {
@@ -113,11 +109,11 @@ const App: React.FC = () => {
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
-    makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
+    makeNewStates(checked, prefCode, checkedPrefData).then(
       (res) => {
         /*setCheckedPrefCodes(res.newCheckedPrefCodes)
         setLoadedPrefData(res.fetchedNewLoadData)*/
-        setCheckedPrefectureData(res)
+        setCheckedPrefData(res)
       },
     )
   }
@@ -131,14 +127,14 @@ const App: React.FC = () => {
         <span>都道府県</span>
       </div>
 
-      <div className="app-prefectures-list-container">
+      <div className="app-Prefs-list-container">
         {prefAry?.map((item) => {
           return (
             <ChkBx01
               key={item.prefCode}
               name={item.prefName}
               onChange={(e) => handleChange(e, item.prefCode)}
-              checked={true}
+              checked={checkedPrefData?.find((value)=> value.prefCode === item.prefCode) !== undefined}
             />
           )
         })}

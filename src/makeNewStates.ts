@@ -8,7 +8,7 @@ export const makeNewStates = async (
 ) => {
   let newCheckedPrefData = checkedPrefData // returnされる
   if (checked) {
-    if (!checkedPrefData.includes(prefCode)) {
+    if (!checkedPrefData?.find((value)=> value.prefCode === prefCode)) {
       const prefData = await getPopData.FetchPop(prefCode)
       newCheckedPrefData.push({
         prefCode: prefCode,
