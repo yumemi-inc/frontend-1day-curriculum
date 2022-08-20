@@ -21,12 +21,12 @@ const App: React.FC = () => {
     new Map<number, number[]>(),
   )
 
-  const graphData: { data: number[]; name: string }[] = checkedPrefectureCodes
-    .map((code) => prefectures.find((pref) => pref.prefCode === code))
-    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
+  const graphData: { data: number[]; name: string }[] = 
+  prefectures
+    .filter((prefecture) => checkedPrefectureCodes.includes(prefecture.prefCode) && loadedPrefData.has(prefecture.prefCode))
     .map((pref) => ({
-      name: pref!.prefName,
-      data: [...loadedPrefData.get(pref!.prefCode)!],
+      name: pref.prefName,
+      data: [...loadedPrefData.get(pref.prefCode)],
     }))
 
   const options = {
