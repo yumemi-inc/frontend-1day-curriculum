@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import getPrefData from './components/prefAPI';
+import {GetPrefecture} from './components/getPrefectureAPI';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
@@ -49,7 +49,6 @@ const App: React.FC = () => {
     },
     xAxis: {
       /* APIが返してくる年度はこれだった */
-      // 配列簡潔に書きたい
       categories: [
         '1960',
         '1965',
@@ -101,7 +100,7 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefAry(data));
+    GetPrefecture().then((data) => setPrefAry(data));
   }, []);
 
   const handleChange = (checked: boolean, prefCode: number) => {
