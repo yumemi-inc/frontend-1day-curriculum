@@ -10,6 +10,7 @@
 }
 
 html,
+/* importantを消す */
 body {
   height: 100vh !important;
   color: #000 !important;
