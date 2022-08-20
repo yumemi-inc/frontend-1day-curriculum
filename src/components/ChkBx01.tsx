@@ -1,14 +1,14 @@
 // 消す
-import { useState } from "react"
+import { useState } from 'react';
 
 export type ChkBx01Props = {
-  name: string
+  name: string;
   // 県コード必要
-}
+};
 
 // 都道府県1つ分のチェックボックス
 export const ChkBx01: React.FC<ChkBx01Props> = () => {
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(false);
   return (
     <label>
       <input
@@ -18,5 +18,5 @@ export const ChkBx01: React.FC<ChkBx01Props> = () => {
       />
       <span>愛知県</span>
     </label>
-  )
-}
+  );
+};

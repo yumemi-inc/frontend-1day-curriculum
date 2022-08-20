@@ -67,15 +67,15 @@ a {
   min-width: 10%;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   position: absolute;
   cursor: pointer;
   width: 0px;
   height: 0px;
 }
 
-input[type="checkbox"]:checked:before {
-  content: "";
+input[type='checkbox']:checked:before {
+  content: '';
   display: block;
   position: absolute;
   width: 17px;
@@ -86,8 +86,8 @@ input[type="checkbox"]:checked:before {
   transition: all 0.2s linear;
 }
 
-input[type="checkbox"]:before {
-  content: "";
+input[type='checkbox']:before {
+  content: '';
   display: block;
   position: absolute;
   width: 17px;
@@ -97,8 +97,8 @@ input[type="checkbox"]:before {
   background-color: #445768;
 }
 
-input[type="checkbox"]:after {
-  content: "";
+input[type='checkbox']:after {
+  content: '';
   display: block;
   width: 0px;
   height: 0px;
@@ -113,8 +113,8 @@ input[type="checkbox"]:after {
   transition: all 0.2s linear;
 }
 
-input[type="checkbox"]:checked:after {
-  content: "";
+input[type='checkbox']:checked:after {
+  content: '';
   display: block;
   width: 6px;
   height: 11px;
