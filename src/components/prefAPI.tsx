@@ -1,3 +1,10 @@
+import { PrefectureResponse } from "../types/resas"
+
+function isPrefectureResponse(data: any): data is PrefectureResponse {
+  if (!("message" in data) || !("result" in data)) return false
+  return true
+}
+
 class Pref {
   GetPref = async () => {
     const res = await fetch(
@@ -9,7 +16,11 @@ class Pref {
         },
       },
     )
-    return await res.json().then((res) => res.result)
+    const resData = await res.json()
+    if (!isPrefectureResponse(resData)) {
+      return undefined
+    }
+    return resData.result
   }
 }
 
