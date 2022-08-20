@@ -1,12 +1,15 @@
 import { Prefecture } from "../types/resas"
 
-export type ChkBx01Props = {
+export type PrefectureCheckboxProps = {
   prefecture: Prefecture
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 // 都道府県1つ分のチェックボックス
-export const ChkBx01: React.FC<ChkBx01Props> = ({ prefecture, onChange }) => {
+export const PrefectureCheckbox: React.FC<PrefectureCheckboxProps> = ({
+  prefecture,
+  onChange,
+}) => {
   return (
     <label key={prefecture.prefCode} className="app-prefectures-list">
       <input

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { fetchPopulation, fetchPrefecture } from "./api/resas"
 import "./App.css"
-import { ChkBx01 } from "./components/ChkBx01"
 import { PopulationGraph } from "./components/PopulationGraph"
+import { PrefectureCheckbox } from "./components/PrefectureCheckbox"
 import { makeNewStates } from "./makeNewStates"
 import { Prefecture } from "./types/resas"
 
@@ -51,7 +51,7 @@ const App: React.FC = () => {
       <div className="app-prefectures-list-container">
         {prefAry?.map((item) => {
           return (
-            <ChkBx01
+            <PrefectureCheckbox
               key={item.prefCode}
               prefecture={item}
               onChange={(e) => handleChange(e.target.checked, item.prefCode)}
