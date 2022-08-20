@@ -1,22 +1,26 @@
-import { useState } from "react"
 import styles from "./PrefectureCheckbox.module.css"
 
 export type PrefectureCheckboxProps = {
   name: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  checked?: boolean;
+  defaultChecked?: boolean;
 };
 
 // 都道府県1つ分のチェックボックス
-export const PrefectureCheckbox: React.FC<PrefectureCheckboxProps> = () => {
-  const [checked, setChecked] = useState(false)
+export const PrefectureCheckbox: React.FC<PrefectureCheckboxProps> = ({
+  name, onChange, checked, defaultChecked,
+}) => {
   return (
     <label className={styles["prefectures-list"]}>
       <input
         className={styles["prefectures-list-checkbox"]}
         type="checkbox"
+        defaultChecked={defaultChecked}
         checked={checked}
-        onChange={() => setChecked((bool) => !bool)}
+        onChange={onChange}
       />
-      <span className={styles["prefectures-name"]}>愛知県</span>
+      <span className={styles["prefectures-name"]}>{name}</span>
     </label>
   )
 }

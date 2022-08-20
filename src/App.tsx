@@ -120,19 +120,12 @@ const App: React.FC = () => {
       </div>
 
       <div className='app-prefectures-list-container'>
-        {prefAry?.map((item) => {
+        {prefAry?.map((item) => 
           // 伸び代: 初めてチェックするチェックボックスの時に素早く連続で他のをチェックするとうまく動かない
-          return (
-            <label key={item.prefCode} className='app-prefectures-list'>
-              <input
-                className='app-prefectures-list-checkbox'
-                type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-              />
-              <span className='app-prefectures-name'>{item.prefName}</span>
-            </label>
-          )
-        })}
+          (
+            <PrefectureCheckbox  key={item.prefCode} name={item.prefName} onChange={(e) => handleChange(e.target.checked, item.prefCode)} />
+          ),
+        )}
       </div>
       <div className='container-chart'>
         {/* 伸び代: ワーニングがコンソールに出ている */}
@@ -142,7 +135,6 @@ const App: React.FC = () => {
           options={options}
         />
       </div>
-      <PrefectureCheckbox name="hoge" />
     </div>
   )
 }
