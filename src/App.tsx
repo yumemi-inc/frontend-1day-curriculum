@@ -1,5 +1,5 @@
 import "./App.css"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
@@ -96,10 +96,10 @@ const App: React.FC = () => {
     series: graphData,
   }
 
-  const handleChange = async (checked: boolean, prefCode: number) => {
+  const handleChange = useCallback(async (checked: boolean, prefCode: number) => {
     setCheckedPrefectureCodes(updateCheckedPrefCodes(checked, prefCode, checkedPrefectureCodes))
     setCachedPrefecturesData(await fetchNewData(checked, prefCode, cachedPrefecturesData))
-  }
+  }, []) 
 
   return (
     <div className='container'>
