@@ -1,13 +1,15 @@
 import { useCallback } from "react"
 
-export type ChkBx01Props = {
+export type PrefectureCheckBoxProps = {
   name: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
 };
 
 // 都道府県1つ分のチェックボックス
-export const ChkBx01: React.FC<ChkBx01Props> = (props: ChkBx01Props) => {
+export const PrefectureCheckBox: React.FC<PrefectureCheckBoxProps> = (
+  props: PrefectureCheckBoxProps,
+) => {
   const handleChange = useCallback(
     (event: any) => {
       props.onChange(event.currentTarget.checked)

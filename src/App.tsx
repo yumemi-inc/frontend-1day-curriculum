@@ -5,7 +5,7 @@ import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
 import { updateSelectedPrefData } from "./updateSelectedPrefData"
-import { ChkBx01 } from "./components/ChkBx01"
+import { PrefectureCheckBox } from "./components/PrefectureCheckBox"
 
 NoDataToDisplay(Highcharts)
 
@@ -137,7 +137,7 @@ const App: React.FC = () => {
       <div className="app-Prefs-list-container">
         {prefAry?.map((item) => {
           return (
-            <ChkBx01
+            <PrefectureCheckBox
               key={item.prefCode}
               name={item.prefName}
               onChange={(e) => handleChange(e, item.prefCode)}
