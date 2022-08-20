@@ -21,17 +21,21 @@ export type CheckedPrefData = {
 
 const App: React.FC = () => {
   const [prefAry, setPrefAry] = useState<PrefData[]>([])
-  const [checkedPrefData, setCheckedPrefData] =
-    useState<CheckedPrefData[]>([])
+  const [checkedPrefData, setCheckedPrefData] = useState<CheckedPrefData[]>([])
 
-  const graphData: { data: number[]; name: string }[] = checkedPrefData 
-    
-    .map((code) => prefAry.find((pref) => /*pref.prefCode === code*/true))
-    .filter((pref) => pref !== undefined && /*loadedPrefData.has(pref.prefCode)*/ true)
-    .map((pref) => ({
-      name: pref!.prefName,
-      data: /*[...loadedPrefData.get(pref!.prefCode)!]*/[],
-    }))
+  const graphData: { data: number[]; name: string }[] = checkedPrefData
+    .filter(
+      (pref) =>
+        pref !== undefined &&
+        prefAry.find((value) => value.prefCode === pref.prefCode),
+    )
+    .map((data) => {
+      const prefData = prefAry.find((pref) => pref.prefCode === data.prefCode)
+      return {
+        name: prefData!.prefName,
+        data: data.prefData,
+      }
+    })
 
   const options = {
     chart: {
@@ -109,13 +113,14 @@ const App: React.FC = () => {
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
-    makeNewStates(checked, prefCode, checkedPrefData).then(
-      (res) => {
-        /*setCheckedPrefCodes(res.newCheckedPrefCodes)
+    // console.log(checked);
+    // console.log(prefCode);
+    makeNewStates(checked, prefCode, checkedPrefData).then((res) => {
+      /*setCheckedPrefCodes(res.newCheckedPrefCodes)
         setLoadedPrefData(res.fetchedNewLoadData)*/
-        setCheckedPrefData(res)
-      },
-    )
+      console.log(res)
+      setCheckedPrefData(res)
+    })
   }
 
   return (
@@ -134,7 +139,11 @@ const App: React.FC = () => {
               key={item.prefCode}
               name={item.prefName}
               onChange={(e) => handleChange(e, item.prefCode)}
-              checked={checkedPrefData?.find((value)=> value.prefCode === item.prefCode) !== undefined}
+              checked={
+                checkedPrefData?.find(
+                  (value) => value.prefCode === item.prefCode,
+                ) !== undefined
+              }
             />
           )
         })}
