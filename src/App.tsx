@@ -1,10 +1,13 @@
 import "./App.css"
 import { useState, useEffect } from "react"
-import getPrefData from "./components/prefAPI"
+import {fetchPrefectures} from "./api/fetchPrefectures"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
-import { makeNewStates } from "./makeNewStates"
+import { PrefCheckBox } from "./components/PrefCheckBox"
+import { updateCheckedPrefCodes } from "./core/updateCheckedPrefCodes"
+import { updateLoadedPrefData } from "./core/updateLoadedPrefData"
+import { Header } from "./components/Header"
 
 NoDataToDisplay(Highcharts)
 
@@ -100,23 +103,21 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefAry(data))
+    fetchPrefectures().then((data) => setPrefAry(data))
   }, [])
 
-  const handleChange = (checked: boolean, prefCode: number) => {
-    makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
-      (res) => {
-        setCheckedPrefCodes(res.newCheckedPrefCodes)
-        setLoadedPrefData(res.fetchedNewLoadData)
-      },
-    )
+  const handleChange = async (checked: boolean, prefCode: number) => {
+    const newPrefCodes = updateCheckedPrefCodes(checked, prefCode, checkedPrefCodes)
+    setCheckedPrefCodes(newPrefCodes)
+
+    const newPrefData = await updateLoadedPrefData(prefCode, loadedPrefData)
+    setLoadedPrefData(newPrefData)
   }
 
   return (
     <div className='container'>
-      <div className='h1 container-title'>
-        <span>都道府県別の総人口推移グラフ</span>
-      </div>
+      <Header/>
+      
       <div className='h3 container-main'>
         <span>都道府県</span>
       </div>
@@ -124,17 +125,16 @@ const App: React.FC = () => {
       <div className='app-prefectures-list-container'>
         {prefAry?.map((item) => {
           return (
-            <label key={item.prefCode} className='app-prefectures-list'>
-              <input
-                className='app-prefectures-list-checkbox'
-                type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-              />
-              <span className='app-prefectures-name'>{item.prefName}</span>
-            </label>
+            <PrefCheckBox
+              key={item.prefCode}
+              name={item.prefName}
+              checked={checkedPrefCodes.includes(item.prefCode)}
+              onChange={(e) => handleChange(e.target.checked, item.prefCode)}
+            />
           )
         })}
       </div>
+
       <div className='container-chart'>
         <HighchartsReact
           highcharts={Highcharts}
