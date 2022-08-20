@@ -5,6 +5,7 @@ import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
 import { makeNewStates } from "./makeNewStates"
+import { ChkBx01 } from "./components/ChkBx01"
 
 NoDataToDisplay(Highcharts)
 
@@ -124,14 +125,7 @@ const App: React.FC = () => {
       <div className='app-prefectures-list-container'>
         {prefAry?.map((item) => {
           return (
-            <label key={item.prefCode} className='app-prefectures-list'>
-              <input
-                className='app-prefectures-list-checkbox'
-                type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-              />
-              <span className='app-prefectures-name'>{item.prefName}</span>
-            </label>
+            <ChkBx01 key={item.prefCode} name={item.prefName}  onChange={(e) => handleChange(e, item.prefCode)} checked={true}/>
           )
         })}
       </div>
