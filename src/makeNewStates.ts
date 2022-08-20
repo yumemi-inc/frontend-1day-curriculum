@@ -1,4 +1,4 @@
-import getPopData from "./components/popAPI"
+import { getPopulation } from "./api/api"
 
 export const fetchNewData = async (  
   checked: boolean,
@@ -7,7 +7,8 @@ export const fetchNewData = async (
 ) => {
   if (!checked || loadedPrefData.has(prefCode)) return loadedPrefData
 
-  const res = await getPopData.FetchPop(prefCode)
+  // const res = await getPopData.FetchPop(prefCode)
+  const res = await getPopulation(prefCode)
   const newLoadedData = new Map(loadedPrefData)
   newLoadedData.set(
     prefCode,

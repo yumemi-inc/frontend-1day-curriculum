@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import getPrefData from "./components/prefAPI"
+import { getPrefectures } from "./api/api"
 
 type Prefecture = {
   prefCode: number
@@ -10,7 +10,8 @@ export const usePrefectures = () => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([])
     
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefectures(data))
+    // getPrefData.GetPref().then((data) => setPrefectures(data))
+    getPrefectures().then((data) => setPrefectures(data))
   }, [])
 
   return prefectures
