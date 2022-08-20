@@ -15,14 +15,14 @@ type PrefectureData = {
 }
 
 const App: React.FC = () => {
-  const [prefAry, setPrefAry] = useState<PrefectureData[]>([])
+  const [prefecutures, setPrefecutures] = useState<PrefectureData[]>([])
   const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
   const [loadedPrefData, setLoadedPrefData] = useState(
     new Map<number, number[]>(),
   )
 
   const graphData: { data: number[]; name: string }[] = checkedPrefCodes
-    .map((code) => prefAry.find((pref) => pref.code === code))
+    .map((code) => prefecutures.find((pref) => pref.code === code))
     .filter((pref) => pref !== undefined && loadedPrefData.has(pref.code))
     .map((pref) => ({
       name: pref!.name,
@@ -101,7 +101,7 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefAry(data))
+    getPrefData.GetPref().then((data) => setPrefecutures(data))
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
@@ -123,7 +123,7 @@ const App: React.FC = () => {
       </div>
 
       <div className='app-prefectures-list-container'>
-        {prefAry?.map((item) => {
+        {prefecutures?.map((item) => {
           return (
             <label key={item.code} className='app-prefectures-list'>
               <input
