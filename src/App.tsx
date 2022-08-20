@@ -4,7 +4,7 @@ import getPrefData from "./components/prefAPI"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
-import { makeNewStates } from "./makeNewStates"
+import { updateCheckedPrefCodes, fetchNewData } from "./makeNewStates"
 
 // 「表示するデータがありません」などのメッセージを表示するため
 NoDataToDisplay(Highcharts)
@@ -104,13 +104,9 @@ const App: React.FC = () => {
     getPrefData.GetPref().then((data) => setPrefectures(data))
   }, [])
 
-  const handleChange = (checked: boolean, prefCode: number) => {
-    makeNewStates(checked, prefCode, checkedPrefectureCodes, loadedPrefData).then(
-      (res) => {
-        setCheckedPrefectureCodes(res.newCheckedPrefCodes)
-        setLoadedPrefData(res.fetchedNewLoadData)
-      },
-    )
+  const handleChange = async (checked: boolean, prefCode: number) => {
+    setCheckedPrefectureCodes(updateCheckedPrefCodes(checked, prefCode, checkedPrefectureCodes))
+    setLoadedPrefData(await fetchNewData(checked, prefCode, loadedPrefData))
   }
 
   return (

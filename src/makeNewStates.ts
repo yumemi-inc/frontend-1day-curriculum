@@ -1,6 +1,6 @@
 import getPopData from "./components/popAPI"
 
-const fetchNewData = async (  
+export const fetchNewData = async (  
   checked: boolean,
   prefCode: number,
   loadedPrefData: Map<number, number[]>,
@@ -17,7 +17,7 @@ const fetchNewData = async (
   return newLoadedData
 }
 
-const updateCheckedPrefCodes = (
+export const updateCheckedPrefCodes = (
   checked: boolean,
   prefCode: number,
   checkedPrefCodes: number[],
@@ -29,21 +29,4 @@ const updateCheckedPrefCodes = (
   }
 
   return checkedPrefCodes 
-}
-
-export const makeNewStates = async (
-  checked: boolean,
-  prefCode: number,
-  checkedPrefCodes: number[],
-  loadedPrefData: Map<number, number[]>,
-) => {
-  const fetchedNewLoadData = await fetchNewData(checked, prefCode, loadedPrefData)
-  const newCheckedPrefCodes = updateCheckedPrefCodes(checked,prefCode, checkedPrefCodes)
-
-  const newStates = {
-    newCheckedPrefCodes,
-    fetchedNewLoadData,
-  }
-
-  return newStates
 }
