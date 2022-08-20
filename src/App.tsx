@@ -1,5 +1,5 @@
 import "./App.css"
-import { fetchPrefecture } from "./api/resas"
+import { fetchPopulation, fetchPrefecture } from "./api/resas"
 import { makeNewStates } from "./makeNewStates"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
@@ -19,6 +19,8 @@ const App: React.FC = () => {
   const [loadedPrefData, setLoadedPrefData] = useState(
     new Map<number, number[]>(),
   )
+
+  const [years, setYears] = useState<number[] | undefined>()
 
   const graphData: { data: number[]; name: string }[] = checkedPrefCodes
     .map((code) => prefAry.find((pref) => pref.prefCode === code))
@@ -49,6 +51,7 @@ const App: React.FC = () => {
     },
     xAxis: {
       /* APIが返してくる年度はこれだった */
+      /*
       categories: [
         "1960",
         "1965",
@@ -69,6 +72,8 @@ const App: React.FC = () => {
         "2040",
         "2045",
       ],
+      */
+      categories: years,
       offset: 0,
       title: {
         text: "年度",
@@ -100,6 +105,7 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
+    fetchPopulation(1).then((popres) => setYears(popres[0].data.map((prefs) => prefs.year)))
     fetchPrefecture().then((data) => setPrefAry(data))
   }, [])
 
