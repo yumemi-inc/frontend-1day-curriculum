@@ -16,7 +16,11 @@ type PrefData = {
 
 export type CheckedPrefData = {
   prefCode: number;
-  prefData: number[];
+  prefData: {
+    label:string;
+    data:{year:number,
+    value:number}[]
+  }[];
 };
 
 const App: React.FC = () => {
@@ -33,7 +37,7 @@ const App: React.FC = () => {
       const prefData = prefAry.find((pref) => pref.prefCode === data.prefCode)
       return {
         name: prefData!.prefName,
-        data: data.prefData,
+        data: data.prefData.find((value)=>value.label === "総人口").data.map((value)=> value.value),
       }
     })
 
@@ -113,12 +117,7 @@ const App: React.FC = () => {
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
-    // console.log(checked);
-    // console.log(prefCode);
     makeNewStates(checked, prefCode, checkedPrefData).then((res) => {
-      /*setCheckedPrefCodes(res.newCheckedPrefCodes)
-        setLoadedPrefData(res.fetchedNewLoadData)*/
-      console.log(res)
       setCheckedPrefData(res)
     })
   }
