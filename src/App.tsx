@@ -9,24 +9,24 @@ import { makeNewStates } from "./makeNewStates"
 // 「表示するデータがありません」などのメッセージを表示するため
 NoDataToDisplay(Highcharts)
 
-type PrefData = {
-  prefCode: number
-  prefName: string
+type PrefectureData = {
+  code: number
+  name: string
 }
 
 const App: React.FC = () => {
-  const [prefAry, setPrefAry] = useState<PrefData[]>([])
+  const [prefAry, setPrefAry] = useState<PrefectureData[]>([])
   const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
   const [loadedPrefData, setLoadedPrefData] = useState(
     new Map<number, number[]>(),
   )
 
   const graphData: { data: number[]; name: string }[] = checkedPrefCodes
-    .map((code) => prefAry.find((pref) => pref.prefCode === code))
-    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
+    .map((code) => prefAry.find((pref) => pref.code === code))
+    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.code))
     .map((pref) => ({
-      name: pref!.prefName,
-      data: [...loadedPrefData.get(pref!.prefCode)!],
+      name: pref!.name,
+      data: [...loadedPrefData.get(pref!.code)!],
     }))
 
   const options = {
@@ -125,13 +125,13 @@ const App: React.FC = () => {
       <div className='app-prefectures-list-container'>
         {prefAry?.map((item) => {
           return (
-            <label key={item.prefCode} className='app-prefectures-list'>
+            <label key={item.code} className='app-prefectures-list'>
               <input
                 className='app-prefectures-list-checkbox'
                 type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
+                onChange={(e) => handleChange(e.target.checked, item.code)}
               />
-              <span className='app-prefectures-name'>{item.prefName}</span>
+              <span className='app-prefectures-name'>{item.name}</span>
             </label>
           )
         })}
