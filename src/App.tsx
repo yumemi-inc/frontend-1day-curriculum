@@ -103,12 +103,8 @@ const App: React.FC = () => {
 
   return (
     <div className='container'>
-      <div className='h1 container-title'>
-        <span>都道府県別の総人口推移グラフ</span>
-      </div>
-      <div className='h3 container-main'>
-        <span>都道府県</span>
-      </div>
+      <h1 className='container-title'>都道府県別の総人口推移グラフ</h1>
+      <h3 className='container-main'>都道府県</h3>
 
       <div className='app-prefectures-list-container'>
         {prefectures?.map((item) => {
