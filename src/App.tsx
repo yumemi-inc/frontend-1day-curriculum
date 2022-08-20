@@ -14,7 +14,7 @@ type PrefData = {
   prefName: string;
 };
 
-export type CheckedPrefData = {
+export type SelectedPrefData = {
   prefCode: number;
   prefData: {
     label: string;
@@ -24,9 +24,11 @@ export type CheckedPrefData = {
 
 const App: React.FC = () => {
   const [prefAry, setPrefAry] = useState<PrefData[]>([])
-  const [checkedPrefData, setCheckedPrefData] = useState<CheckedPrefData[]>([])
+  const [selectedPrefData, setSelectedPrefData] = useState<SelectedPrefData[]>(
+    [],
+  )
 
-  const graphData: { data: number[]; name: string }[] = checkedPrefData
+  const graphData: { data: number[]; name: string }[] = selectedPrefData
     .filter(
       (pref) =>
         pref !== undefined &&
@@ -118,8 +120,8 @@ const App: React.FC = () => {
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
-    updateSelectedPrefData(checked, prefCode, checkedPrefData).then((res) => {
-      setCheckedPrefData(res)
+    updateSelectedPrefData(checked, prefCode, selectedPrefData).then((res) => {
+      setSelectedPrefData(res)
     })
   }
 
@@ -140,7 +142,7 @@ const App: React.FC = () => {
               name={item.prefName}
               onChange={(e) => handleChange(e, item.prefCode)}
               checked={
-                checkedPrefData?.find(
+                selectedPrefData?.find(
                   (value) => value.prefCode === item.prefCode,
                 ) !== undefined
               }
