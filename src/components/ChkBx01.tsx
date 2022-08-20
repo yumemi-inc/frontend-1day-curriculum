@@ -1,20 +1,20 @@
-import { useState } from "react"
+import { Prefecture } from "../types/resas"
 
 export type ChkBx01Props = {
-  name: string
+  prefecture: Prefecture
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 // 都道府県1つ分のチェックボックス
-export const ChkBx01: React.FC<ChkBx01Props> = () => {
-  const [checked, setChecked] = useState(false)
+export const ChkBx01: React.FC<ChkBx01Props> = ({ prefecture, onChange }) => {
   return (
-    <label>
+    <label key={prefecture.prefCode} className="app-prefectures-list">
       <input
+        className="app-prefectures-list-checkbox"
         type="checkbox"
-        checked={checked}
-        onChange={() => setChecked((bool) => !bool)}
+        onChange={onChange}
       />
-      <span>愛知県</span>
+      <span className="app-prefectures-name">{prefecture.prefName}</span>
     </label>
   )
 }

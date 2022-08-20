@@ -1,16 +1,13 @@
-import "./App.css"
+import { useEffect, useState } from "react"
 import { fetchPopulation, fetchPrefecture } from "./api/resas"
+import "./App.css"
+import { ChkBx01 } from "./components/ChkBx01"
 import { PopulationGraph } from "./components/PopulationGraph"
 import { makeNewStates } from "./makeNewStates"
-import { useState, useEffect } from "react"
-
-type PrefData = {
-  prefCode: number
-  prefName: string
-}
+import { Prefecture } from "./types/resas"
 
 const App: React.FC = () => {
-  const [prefAry, setPrefAry] = useState<PrefData[]>([])
+  const [prefAry, setPrefAry] = useState<Prefecture[]>([])
   const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
   const [loadedPrefData, setLoadedPrefData] = useState(
     new Map<number, number[]>(),
@@ -54,14 +51,11 @@ const App: React.FC = () => {
       <div className="app-prefectures-list-container">
         {prefAry?.map((item) => {
           return (
-            <label key={item.prefCode} className="app-prefectures-list">
-              <input
-                className="app-prefectures-list-checkbox"
-                type="checkbox"
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-              />
-              <span className="app-prefectures-name">{item.prefName}</span>
-            </label>
+            <ChkBx01
+              key={item.prefCode}
+              prefecture={item}
+              onChange={(e) => handleChange(e.target.checked, item.prefCode)}
+            />
           )
         })}
       </div>
