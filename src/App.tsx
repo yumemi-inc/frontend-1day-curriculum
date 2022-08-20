@@ -15,14 +15,14 @@ type Prefecture = {
 }
 
 const App: React.FC = () => {
-  const [prefecutures, setPrefecutures] = useState<Prefecture[]>([])
-  const [checkedPrefecutureCodes, setCheckedPrefecutureCodes] = useState<number[]>([])
+  const [prefectures, setPrefectures] = useState<Prefecture[]>([])
+  const [checkedPrefectureCodes, setCheckedPrefectureCodes] = useState<number[]>([])
   const [loadedPrefData, setLoadedPrefData] = useState(
     new Map<number, number[]>(),
   )
 
-  const graphData: { data: number[]; name: string }[] = checkedPrefecutureCodes
-    .map((code) => prefecutures.find((pref) => pref.prefCode === code))
+  const graphData: { data: number[]; name: string }[] = checkedPrefectureCodes
+    .map((code) => prefectures.find((pref) => pref.prefCode === code))
     .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
     .map((pref) => ({
       name: pref!.prefName,
@@ -101,13 +101,13 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefecutures(data))
+    getPrefData.GetPref().then((data) => setPrefectures(data))
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
-    makeNewStates(checked, prefCode, checkedPrefecutureCodes, loadedPrefData).then(
+    makeNewStates(checked, prefCode, checkedPrefectureCodes, loadedPrefData).then(
       (res) => {
-        setCheckedPrefecutureCodes(res.newCheckedPrefCodes)
+        setCheckedPrefectureCodes(res.newCheckedPrefCodes)
         setLoadedPrefData(res.fetchedNewLoadData)
       },
     )
@@ -123,7 +123,7 @@ const App: React.FC = () => {
       </div>
 
       <div className='app-prefectures-list-container'>
-        {prefecutures?.map((item) => {
+        {prefectures?.map((item) => {
           return (
             <label key={item.prefCode} className='app-prefectures-list'>
               <input
