@@ -8,6 +8,7 @@ import { makeNewStates } from "./makeNewStates"
 
 NoDataToDisplay(Highcharts)
 
+// 伸び代: 型を一箇所にまとめたいかも
 type PrefData = {
   prefCode: number
   prefName: string
@@ -28,6 +29,7 @@ const App: React.FC = () => {
       data: [...loadedPrefData.get(pref!.prefCode)!],
     }))
 
+  // 伸び代: グラフのコンポーネントをラップして別コンポーネントにしてしまいたい
   const options = {
     chart: {
       type: "spline",
@@ -123,6 +125,7 @@ const App: React.FC = () => {
 
       <div className='app-prefectures-list-container'>
         {prefAry?.map((item) => {
+          // 伸び代: 初めてチェックするチェックボックスの時に素早く連続で他のをチェックするとうまく動かない
           return (
             <label key={item.prefCode} className='app-prefectures-list'>
               <input
@@ -136,6 +139,7 @@ const App: React.FC = () => {
         })}
       </div>
       <div className='container-chart'>
+        {/* 伸び代: ワーニングがコンソールに出ている */}
         <HighchartsReact
           highcharts={Highcharts}
           constructorType={"chart"}

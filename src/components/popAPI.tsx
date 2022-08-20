@@ -5,6 +5,7 @@ class Pop {
       {
         method: "GET",
         headers: {
+          // 伸び代: APIキーそのままなの嫌だ
           "X-API-KEY": "Kzjb2lIu0Kfyv1rwZGhcuAaF706Y9n9MncX5Ivyg",
         },
       },

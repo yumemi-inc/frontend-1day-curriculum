@@ -20,6 +20,7 @@ export const makeNewStates = async (
       const newLoadedData = new Map(loadedPrefData)
       newLoadedData.set(
         prefCode,
+        // 伸び代: anyがあるのやだ
         res[0].data.map((item: any) => item.value),
       )
 
