@@ -4,7 +4,7 @@ import {fetchPrefectures} from "./api/fetchPrefectures"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
-import { makeNewStates } from "./makeNewStates"
+import { makeNewStates } from "./core/makeNewStates"
 import { PrefCheckBox } from "./components/PrefCheckBox"
 
 NoDataToDisplay(Highcharts)
