@@ -23,9 +23,6 @@ const App: React.FC = () => {
     new Map<number, number[]>(),
   )
 
-  // const [checked, setChecked] = useState(false)
-  
-
   const graphData: { data: number[]; name: string }[] = checkedPrefCodes
     .map((code) => prefAry.find((pref) => pref.prefCode === code))
     .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
@@ -128,14 +125,6 @@ const App: React.FC = () => {
       <div className='app-prefectures-list-container'>
         {prefAry?.map((item) => {
           return (
-            // <label key={item.prefCode} className='app-prefectures-list'>
-            //   <input
-            //     className='app-prefectures-list-checkbox'
-            //     type='checkbox'
-            //     onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-            //   />
-            //   <span className='app-prefectures-name'>{item.prefName}</span>
-            // </label>
             <PrefCheckBox
               key={item.prefCode}
               name={item.prefName}
