@@ -6,7 +6,7 @@ import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
 import { makeNewStates } from "./makeNewStates"
 import { PrefData } from "./types"
-import { PrefectureCheckbox } from "./components/PrefectureCheckbox/PrefectureCheckbox"
+import { PrefectureCheckbox } from "./components/PrefectureCheckbox/"
 
 NoDataToDisplay(Highcharts)
 
@@ -121,10 +121,10 @@ const App: React.FC = () => {
 
       <div className='app-prefectures-list-container'>
         {prefAry?.map((item) =>
-          // 伸び代: 初めてチェックするチェックボックスの時に素早く連続で他のをチェックするとうまく動かない
-          (
-            <PrefectureCheckbox key={item.prefCode} name={item.prefName} onChange={(e) => handleChange(e.target.checked, item.prefCode)} />
-          ),
+        // 伸び代: 初めてチェックするチェックボックスの時に素早く連続で他のをチェックするとうまく動かない
+        (
+          <PrefectureCheckbox key={item.prefCode} name={item.prefName} onChange={(e) => handleChange(e.target.checked, item.prefCode)} />
+        ),
         )}
       </div>
       <div className='container-chart'>
