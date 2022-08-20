@@ -5,14 +5,9 @@ import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
 import { makeNewStates } from "./makeNewStates"
+import { PrefData } from "./types"
 
 NoDataToDisplay(Highcharts)
-
-// 伸び代: 型を一箇所にまとめたいかも
-type PrefData = {
-  prefCode: number
-  prefName: string
-}
 
 const App: React.FC = () => {
   const [prefAry, setPrefAry] = useState<PrefData[]>([])
