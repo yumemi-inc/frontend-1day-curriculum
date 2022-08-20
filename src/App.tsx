@@ -8,6 +8,7 @@ import { makeNewStates } from "./makeNewStates"
 
 NoDataToDisplay(Highcharts)
 
+
 type PrefData = {
   prefCode: number
   prefName: string
