@@ -1,141 +1,162 @@
 import "./App.css"
 import { useState, useEffect } from "react"
-import getPrefData from "./components/prefAPI"
+
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import NoDataToDisplay from "highcharts/modules/no-data-to-display"
-import { makeNewStates } from "./makeNewStates"
+import { updateSelectedPrefData } from "./updateSelectedPrefData"
+import { PrefectureCheckBox } from "./components/PrefectureCheckBox"
+import { fetchPref } from "./components/prefAPI"
 
 NoDataToDisplay(Highcharts)
 
 type PrefData = {
-  prefCode: number
-  prefName: string
-}
+  prefCode: number;
+  prefName: string;
+};
+
+export type SelectedPrefData = {
+  prefCode: number;
+  prefData: {
+    label: string;
+    data: { year: number; value: number }[];
+  }[];
+};
+
+type GraphData = { data: number[]; name: string }[];
+
+const getGraphOption = (graphData: GraphData) => ({
+  chart: {
+    type: "spline",
+    backgroundColor: "#fff",
+    polar: true,
+  },
+  title: {
+    text: "人口構成",
+  },
+  lang: {
+    noData: "データがありません",
+  },
+  noData: {
+    style: {
+      fontWeight: "bold",
+      fontSize: "15px",
+      color: "#303030",
+    },
+  },
+  xAxis: {
+    /* APIが返してくる年度はこれだった */
+    categories: [
+      "1960",
+      "1965",
+      "1970",
+      "1975",
+      "1980",
+      "1985",
+      "1990",
+      "1995",
+      "2000",
+      "2005",
+      "2010",
+      "2015",
+      "2020",
+      "2025",
+      "2030",
+      "2035",
+      "2040",
+      "2045",
+    ],
+    offset: 0,
+    title: {
+      text: "年度",
+      align: "high",
+      textAlign: "left",
+      rotation: 0,
+      offset: 0,
+      margin: 0,
+      y: 30,
+      x: -27,
+    },
+  },
+  yAxis: {
+    visible: true,
+    tickPosition: "inside",
+    offset: 0,
+    title: {
+      text: "人口数",
+      align: "high",
+      textAlign: "left",
+      rotation: 0,
+      offset: 0,
+      margin: 0,
+      y: -20,
+      x: -47,
+    },
+  },
+  series: graphData,
+})
+
 
 const App: React.FC = () => {
   const [prefAry, setPrefAry] = useState<PrefData[]>([])
-  const [checkedPrefCodes, setCheckedPrefCodes] = useState<number[]>([])
-  const [loadedPrefData, setLoadedPrefData] = useState(
-    new Map<number, number[]>(),
+  const [selectedPrefData, setSelectedPrefData] = useState<SelectedPrefData[]>(
+    [],
   )
 
-  const graphData: { data: number[]; name: string }[] = checkedPrefCodes
-    .map((code) => prefAry.find((pref) => pref.prefCode === code))
-    .filter((pref) => pref !== undefined && loadedPrefData.has(pref.prefCode))
-    .map((pref) => ({
-      name: pref!.prefName,
-      data: [...loadedPrefData.get(pref!.prefCode)!],
-    }))
+  const graphData: GraphData = selectedPrefData
+    .filter(
+      (pref) =>
+        pref !== undefined &&
+        prefAry.find((value) => value.prefCode === pref.prefCode),
+    )
+    .map((data) => {
+      const prefData = prefAry.find((pref) => pref.prefCode === data.prefCode)
+      return {
+        name: prefData!.prefName,
+        data: data.prefData
+          .find((value) => value.label === "総人口")
+          .data.map((value) => value.value),
+      }
+    })
 
-  const options = {
-    chart: {
-      type: "spline",
-      backgroundColor: "#fff",
-      polar: true,
-    },
-    title: {
-      text: "人口構成",
-    },
-    lang: {
-      noData: "データがありません",
-    },
-    noData: {
-      style: {
-        fontWeight: "bold",
-        fontSize: "15px",
-        color: "#303030",
-      },
-    },
-    xAxis: {
-      /* APIが返してくる年度はこれだった */
-      categories: [
-        "1960",
-        "1965",
-        "1970",
-        "1975",
-        "1980",
-        "1985",
-        "1990",
-        "1995",
-        "2000",
-        "2005",
-        "2010",
-        "2015",
-        "2020",
-        "2025",
-        "2030",
-        "2035",
-        "2040",
-        "2045",
-      ],
-      offset: 0,
-      title: {
-        text: "年度",
-        align: "high",
-        textAlign: "left",
-        rotation: 0,
-        offset: 0,
-        margin: 0,
-        y: 30,
-        x: -27,
-      },
-    },
-    yAxis: {
-      visible: true,
-      tickPosition: "inside",
-      offset: 0,
-      title: {
-        text: "人口数",
-        align: "high",
-        textAlign: "left",
-        rotation: 0,
-        offset: 0,
-        margin: 0,
-        y: -20,
-        x: -47,
-      },
-    },
-    series: graphData,
-  }
+  const options = getGraphOption(graphData)
 
   useEffect(() => {
-    getPrefData.GetPref().then((data) => setPrefAry(data))
+    fetchPref().then((data) => setPrefAry(data))
   }, [])
 
   const handleChange = (checked: boolean, prefCode: number) => {
-    makeNewStates(checked, prefCode, checkedPrefCodes, loadedPrefData).then(
-      (res) => {
-        setCheckedPrefCodes(res.newCheckedPrefCodes)
-        setLoadedPrefData(res.fetchedNewLoadData)
-      },
-    )
+    updateSelectedPrefData(checked, prefCode, selectedPrefData).then((res) => {
+      setSelectedPrefData(res)
+    })
   }
 
   return (
-    <div className='container'>
-      <div className='h1 container-title'>
+    <div className="container">
+      <div className="h1 container-title">
         <span>都道府県別の総人口推移グラフ</span>
       </div>
-      <div className='h3 container-main'>
+      <div className="h3 container-main">
         <span>都道府県</span>
       </div>
 
-      <div className='app-prefectures-list-container'>
+      <div className="app-Prefs-list-container">
         {prefAry?.map((item) => {
           return (
-            <label key={item.prefCode} className='app-prefectures-list'>
-              <input
-                className='app-prefectures-list-checkbox'
-                type='checkbox'
-                onChange={(e) => handleChange(e.target.checked, item.prefCode)}
-              />
-              <span className='app-prefectures-name'>{item.prefName}</span>
-            </label>
+            <PrefectureCheckBox
+              key={item.prefCode}
+              name={item.prefName}
+              onChange={(e) => handleChange(e, item.prefCode)}
+              checked={
+                selectedPrefData?.find(
+                  (value) => value.prefCode === item.prefCode,
+                ) !== undefined
+              }
+            />
           )
         })}
       </div>
-      <div className='container-chart'>
+      <div className="container-chart">
         <HighchartsReact
           highcharts={Highcharts}
           constructorType={"chart"}
