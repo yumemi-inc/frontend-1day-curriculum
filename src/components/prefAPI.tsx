@@ -5,6 +5,7 @@ type PrefectureApiResponse = {
 
 class Pref {
   GetPref = async (): Promise<PrefectureApiResponse> => {
+    if (!process.env.REACT_APP_API_KEY) throw new Error("REACT_APP_API_KEYが設定されていません")
     const res = await fetch(
       "https://opendata.resas-portal.go.jp/api/v1/prefectures",
       {

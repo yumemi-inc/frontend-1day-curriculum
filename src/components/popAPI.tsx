@@ -9,6 +9,7 @@ type PopulationApiResponse = [
 
 class Pop {
   FetchPop = async (code: number): Promise<PopulationApiResponse> => {
+    if (!process.env.REACT_APP_API_KEY) throw new Error("REACT_APP_API_KEYが設定されていません")
     const res = await fetch(
       `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=${code}`,
       {
