@@ -1,11 +1,17 @@
+type PrefectureApiResponse = {
+  prefCode: number
+  prefName: string
+}[];
+
 class Pref {
-  GetPref = async () => {
+  GetPref = async (): Promise<PrefectureApiResponse> => {
+    if (!process.env.REACT_APP_API_KEY) throw new Error("REACT_APP_API_KEYが設定されていません")
     const res = await fetch(
       "https://opendata.resas-portal.go.jp/api/v1/prefectures",
       {
         method: "GET",
         headers: {
-          "X-API-KEY": "Kzjb2lIu0Kfyv1rwZGhcuAaF706Y9n9MncX5Ivyg",
+          "X-API-KEY": process.env.REACT_APP_API_KEY,
         },
       },
     )
