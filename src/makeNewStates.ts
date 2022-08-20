@@ -17,6 +17,20 @@ const fetchNewData = async (
   return newLoadedData
 }
 
+const updateCheckedPrefCodes = (
+  checked: boolean,
+  prefCode: number,
+  checkedPrefCodes: number[],
+) => {
+  if (!checked) return checkedPrefCodes.filter((code) => code !== prefCode)
+
+  if (!checkedPrefCodes.includes(prefCode)) {
+    return [...checkedPrefCodes, prefCode]
+  }
+
+  return checkedPrefCodes 
+}
+
 export const makeNewStates = async (
   checked: boolean,
   prefCode: number,
@@ -24,23 +38,12 @@ export const makeNewStates = async (
   loadedPrefData: Map<number, number[]>,
 ) => {
   const fetchedNewLoadData = await fetchNewData(checked, prefCode, loadedPrefData)
+  const newCheckedPrefCodes = updateCheckedPrefCodes(checked,prefCode, checkedPrefCodes)
 
   const newStates = {
-    newCheckedPrefCodes: checkedPrefCodes,
+    newCheckedPrefCodes,
     fetchedNewLoadData,
   }
 
-  // チェックが入った場合
-  if (checked) {
-    if (!checkedPrefCodes.includes(prefCode)) {
-      newStates.newCheckedPrefCodes = [...checkedPrefCodes, prefCode]
-    }
-
-  // チェックが外れた場合
-  } else {
-    newStates.newCheckedPrefCodes = checkedPrefCodes.filter(
-      (code) => code !== prefCode,
-    )
-  }
   return newStates
 }
